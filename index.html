@@ -1396,8 +1396,6 @@
         if (!group) return;
         hideAllGroups();
         group.classList.add("active");
-        const target = document.querySelector(hash);
-        if (target) target.scrollIntoView({behavior:"smooth", block:"start"});
       }
 
       function toggleGroup(hash){
