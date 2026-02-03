@@ -75,6 +75,16 @@
     .search input::placeholder{color:rgba(255,255,255,.45);}
     [data-theme="light"] .search input::placeholder{color:rgba(10,12,20,.45);}
 
+    .nav{
+      margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;
+      font-size:11px;color:var(--muted);
+    }
+    .nav a{
+      color:inherit;text-decoration:none;
+      border-bottom:1px dashed transparent;
+    }
+    .nav a:hover{border-bottom-color:currentColor;}
+
     .theme-toggle{
       border:1px solid var(--border);
       background:linear-gradient(180deg,var(--panel),rgba(255,255,255,.03));
@@ -200,6 +210,20 @@
 
     .hidden{display:none !important;}
 
+    .section{
+      border:1px solid var(--border);
+      background:linear-gradient(180deg,var(--panel),rgba(255,255,255,.03));
+      border-radius:var(--radius);
+      padding:14px 16px;
+      margin:0 0 12px;
+      box-shadow:var(--shadow);
+    }
+    .section h2{margin:0 0 8px;font-size:14px;font-weight:850;}
+    .section p{margin:0 0 8px;color:var(--muted);font-size:12px;line-height:1.55;}
+    .section p:last-child{margin-bottom:0;}
+    .section ul{margin:0;padding-left:16px;color:var(--muted);font-size:12px;line-height:1.5;}
+    .section li{margin:2px 0;}
+
     .noscript{
       margin:10px 18px 0;max-width:1900px;margin-left:auto;margin-right:auto;
       border-radius:var(--radius);
@@ -225,6 +249,13 @@
         <p class="subtitle"><span id="count">56</span> tools • 7×8 layout (scrollable)</p>
         <div class="hint">Search only filters (cards are pre-rendered, so they always show).</div>
         <div class="click-note">Click any AI to open it.</div>
+        <div class="nav" aria-label="Site sections">
+          <a href="#about">About</a>
+          <a href="#how">How We Pick</a>
+          <a href="#updates">Update Policy</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#terms">Terms</a>
+        </div>
       </div>
 
       <div class="controls">
@@ -247,6 +278,28 @@
 
   <div class="layout">
     <main>
+      <section id="about" class="section" aria-label="About this site">
+        <h2>About This Directory</h2>
+        <p>This is a curated, human-edited list of AI tools across chat, image, video, music, games, and productivity.
+           We focus on useful, differentiated tools and summarize each one so visitors can decide quickly.</p>
+        <p>Every listing links directly to the official product site. We do not host or mirror third‑party content.</p>
+      </section>
+
+      <section id="how" class="section" aria-label="How we pick tools">
+        <h2>How We Pick Tools</h2>
+        <ul>
+          <li>Original value: tools should offer distinct capabilities, not re-skinned clones.</li>
+          <li>Clarity: each card includes a concise description and practical use cues.</li>
+          <li>User benefit: we prioritize tools that save time or enable new creative output.</li>
+        </ul>
+      </section>
+
+      <section id="updates" class="section" aria-label="Update policy">
+        <h2>Update Policy</h2>
+        <p>This directory is refreshed regularly as tools evolve, new products launch, or quality changes.
+           If a tool becomes inactive or misleading, it is removed.</p>
+      </section>
+
       <section id="grid" class="grid" aria-label="AI tools grid">
 
         <!-- 41 -->
@@ -1201,6 +1254,18 @@
           <ul class="bullets"><li>No-code games</li><li>Playable builds</li></ul>
         </a>
 
+      </section>
+
+      <section id="privacy" class="section" aria-label="Privacy policy">
+        <h2>Privacy</h2>
+        <p>We do not require account creation. Basic analytics may be used to improve the experience.
+           Ads may be personalized based on your settings in your browser or Google account.</p>
+      </section>
+
+      <section id="terms" class="section" aria-label="Terms of use">
+        <h2>Terms</h2>
+        <p>Listings are provided for informational purposes only. Product names and trademarks belong to their owners.
+           Use third‑party tools according to each provider’s terms.</p>
       </section>
     </main>
   </div>
