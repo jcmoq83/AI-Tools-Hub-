@@ -1,48 +1,1021 @@
-<!DOCTYPE html>
-<html lang="ko">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-WEB 미니 게임 천국</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Tools Hub — 5×9</title>
+  <meta name="description" content="A one-page hub of 45 widely-used AI tools in a 5×9 grid." />
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.10);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --border:rgba(255,255,255,.14);
+      --focus:rgba(120,180,255,.55);
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:18px;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% -10%, rgba(126,87,255,.28), transparent 55%),
+        radial-gradient(1000px 700px at 90% 10%, rgba(46,201,255,.18), transparent 50%),
+        radial-gradient(900px 600px at 40% 120%, rgba(255,176,72,.14), transparent 55%),
+        var(--bg);
+    }
+
+    header{padding:14px 18px 12px;max-width:1900px;margin:0 auto;}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+    .titleblock{min-width:260px;}
+    h1{margin:0;font-size:18px;letter-spacing:.2px;font-weight:850;}
+    .subtitle{margin:6px 0 0;color:var(--muted);font-size:12px;line-height:1.35;}
+    .hint{margin-top:6px;font-size:11px;color:rgba(255,255,255,.55);}
+
+    .search{
+      display:flex;align-items:center;gap:10px;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:10px 12px;
+      box-shadow:var(--shadow);
+      width:min(820px,100%);
+    }
+    .search input{
+      width:100%;border:0;outline:none;background:transparent;
+      color:var(--text);font-size:13px;
+    }
+    .search input::placeholder{color:rgba(255,255,255,.45);}
+
+    .layout{
+      max-width:1900px;margin:0 auto;padding:0 18px 18px;
+      display:grid;grid-template-columns:1fr 320px;gap:14px;align-items:start;
+    }
+    main{min-width:0;}
+
+    /* Grid: aim for 5 columns on wide screens. Page scrolls naturally. */
+    .grid{display:grid;gap:12px;grid-template-columns:repeat(5,minmax(0,1fr));}
+
+    /* Reserved ad space (empty) */
+    aside.ad{position:sticky;top:14px;align-self:start;}
+    .ad-slot{
+      width:100%;height:650px;border-radius:var(--radius);
+      border:1px solid var(--border);
+      background:linear-gradient(180deg,var(--panel),rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+    }
+
+    /* Responsive */
+    @media (max-width:1500px){
+      .layout{grid-template-columns:1fr 300px;}
+      .grid{grid-template-columns:repeat(4,minmax(0,1fr));}
+    }
+    @media (max-width:1100px){
+      .layout{grid-template-columns:1fr;}
+      aside.ad{position:static;}
+      .grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .ad-slot{height:280px;}
+    }
+
+    a.card{
+      display:flex;flex-direction:column;gap:10px;padding:14px;
+      border-radius:var(--radius);border:1px solid var(--border);
+      background:linear-gradient(180deg,var(--panel),rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      text-decoration:none;color:inherit;position:relative;
+      transition:transform .12s ease,border-color .12s ease,background .12s ease;
+      min-height:185px;
+    }
+    a.card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(255,255,255,.26);
+      background:linear-gradient(180deg,var(--panel2),rgba(255,255,255,.04));
+    }
+    a.card:focus-visible{
+      outline:none;
+      box-shadow:0 0 0 3px rgba(120,180,255,.35),var(--shadow);
+      border-color:var(--focus);
+    }
+
+    .badge{
+      position:absolute;top:12px;right:12px;font-size:11px;
+      color:rgba(255,255,255,.78);
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);
+      padding:6px 9px;border-radius:999px;
+      backdrop-filter:blur(10px);
+    }
+
+    .head{display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:center;}
+    .icon{
+      width:44px;height:44px;border-radius:14px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.16);
+      display:flex;align-items:center;justify-content:center;
+      overflow:hidden;flex:0 0 auto;
+    }
+    .icon img{width:28px;height:28px;object-fit:contain;display:block;}
+    .fallback{font-weight:900;font-size:14px;color:rgba(255,255,255,.85);letter-spacing:.2px;}
+
+    .name{margin:0;font-size:14px;font-weight:850;line-height:1.2;}
+    .meta{margin-top:4px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+    .pill{
+      font-size:11px;color:rgba(255,255,255,.70);
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      padding:4px 8px;border-radius:999px;
+    }
+
+    /* no clamping => no truncation */
+    .desc{margin:0;color:rgba(255,255,255,.74);font-size:12px;line-height:1.42;white-space:normal;}
+    .bullets{margin:0;padding-left:16px;color:rgba(255,255,255,.72);font-size:12px;line-height:1.38;}
+    .bullets li{margin:2px 0;}
+
+    .hidden{display:none !important;}
+
+    .noscript{
+      margin:10px 18px 0;max-width:1900px;margin-left:auto;margin-right:auto;
+      border-radius:var(--radius);
+      border:1px dashed rgba(255,255,255,.25);
+      background:rgba(255,255,255,.05);
+      padding:12px 14px;
+      color:rgba(255,255,255,.75);
+      font-size:12px;line-height:1.4;
+    }
+  </style>
 </head>
+
 <body>
+  <header>
+    <div class="topbar">
+      <div class="titleblock">
+        <h1>AI Tools Hub</h1>
+        <p class="subtitle"><span id="count">45</span> tools • 5×9 layout (scrollable)</p>
+        <div class="hint">Search only filters (cards are pre-rendered, so they always show).</div>
+      </div>
 
-    <header>
-        <div class="header-container">
-            <h1>AI-WEB 미니 게임 천국</h1>
-            <nav>
-                <a href="#lotto-game" class="active">로또 번호 생성기</a>
-                <a href="#rps-game">가위바위보 게임</a>
-            </nav>
-        </div>
-    </header>
+      <div class="search" role="search" aria-label="Search AI tools">
+        <span aria-hidden="true">🔎</span>
+        <input id="q" type="search" placeholder="Try: chat, image, video, voice, coding…" autocomplete="off" />
+      </div>
+    </div>
+  </header>
 
-    <main class="container">
-        <section id="lotto-game" class="game-section active">
-            <h2>로또 번호 생성기</h2>
-            <div id="lotto-numbers" class="lotto-numbers"></div>
-            <button id="generate-btn">번호 생성</button>
-        </section>
+  <noscript>
+    <div class="noscript">
+      JavaScript is disabled. Cards will still show, but search filtering will not work.
+    </div>
+  </noscript>
 
-        <section id="rps-game" class="game-section">
-            <h2>가위바위보 게임</h2>
-            <div class="rps-scores">
-                <p>플레이어: <span id="player-score">0</span></p>
-                <p>컴퓨터: <span id="computer-score">0</span></p>
+  <div class="layout">
+    <main>
+      <section id="grid" class="grid" aria-label="AI tools grid">
+
+        <!-- 1 -->
+        <a class="card" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="chatgpt chatbot writing analysis coding multimodal openai">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://chatgpt.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>C</span>';">
             </div>
-            <div class="rps-choices">
-                <button class="rps-btn" data-choice="rock">✊</button>
-                <button class="rps-btn" data-choice="scissors">✌️</button>
-                <button class="rps-btn" data-choice="paper">🖐️</button>
+            <div>
+              <p class="name">ChatGPT</p>
+              <div class="meta"><span class="pill">Chatbot</span></div>
             </div>
-            <div id="rps-result" class="rps-result">
-                <p>게임을 시작하세요!</p>
+          </div>
+          <p class="desc">General-purpose assistant for writing, reasoning, coding, and multimodal tasks.</p>
+          <ul class="bullets"><li>Strong all-rounder</li><li>Great for drafts + analysis</li></ul>
+        </a>
+
+        <!-- 2 -->
+        <a class="card" href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="gemini chatbot google assistant writing summarize">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://gemini.google.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>G</span>';">
             </div>
-        </section>
+            <div>
+              <p class="name">Gemini</p>
+              <div class="meta"><span class="pill">Chatbot</span></div>
+            </div>
+          </div>
+          <p class="desc">Google’s assistant for Q&A, summarization, drafting, and Google ecosystem workflows.</p>
+          <ul class="bullets"><li>Good for Google users</li><li>Fast answers & summaries</li></ul>
+        </a>
+
+        <!-- 3 -->
+        <a class="card" href="https://claude.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="claude chatbot long document writing analysis">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://claude.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>C</span>';">
+            </div>
+            <div>
+              <p class="name">Claude</p>
+              <div class="meta"><span class="pill">Chatbot</span></div>
+            </div>
+          </div>
+          <p class="desc">Well-known for strong writing quality and structured long-document handling.</p>
+          <ul class="bullets"><li>Great for long context</li><li>Careful writing tone</li></ul>
+        </a>
+
+        <!-- 4 -->
+        <a class="card" href="https://copilot.microsoft.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="microsoft copilot chatbot productivity">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://copilot.microsoft.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>M</span>';">
+            </div>
+            <div>
+              <p class="name">Microsoft Copilot</p>
+              <div class="meta"><span class="pill">Chatbot</span></div>
+            </div>
+          </div>
+          <p class="desc">Microsoft’s assistant for web queries and productivity-oriented workflows.</p>
+          <ul class="bullets"><li>Good for Microsoft users</li><li>Daily work helper</li></ul>
+        </a>
+
+        <!-- 5 -->
+        <a class="card" href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer"
+           data-keywords="perplexity research search answer sources">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.perplexity.ai" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>P</span>';">
+            </div>
+            <div>
+              <p class="name">Perplexity</p>
+              <div class="meta"><span class="pill">Research</span></div>
+            </div>
+          </div>
+          <p class="desc">Search-first AI for researching topics and exploring directions quickly.</p>
+          <ul class="bullets"><li>Research workflows</li><li>Fast discovery</li></ul>
+        </a>
+
+        <!-- 6 -->
+        <a class="card" href="https://chat.deepseek.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="deepseek chat chatbot reasoning">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://chat.deepseek.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>D</span>';">
+            </div>
+            <div>
+              <p class="name">DeepSeek Chat</p>
+              <div class="meta"><span class="pill">Chatbot</span></div>
+            </div>
+          </div>
+          <p class="desc">Chat-based assistant widely used for general Q&A and reasoning-style prompts.</p>
+          <ul class="bullets"><li>Structured Q&A</li><li>Good for analysis prompts</li></ul>
+        </a>
+
+        <!-- 7 -->
+        <a class="card" href="https://grok.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="grok chatbot xai brainstorming">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://grok.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>G</span>';">
+            </div>
+            <div>
+              <p class="name">Grok</p>
+              <div class="meta"><span class="pill">Chatbot</span></div>
+            </div>
+          </div>
+          <p class="desc">Conversational assistant for Q&A, brainstorming, and iterative exploration.</p>
+          <ul class="bullets"><li>Quick back-and-forth</li><li>Idea generation</li></ul>
+        </a>
+
+        <!-- 8 -->
+        <a class="card" href="https://www.meta.ai/" target="_blank" rel="noopener noreferrer"
+           data-keywords="meta ai chatbot creative">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.meta.ai" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>M</span>';">
+            </div>
+            <div>
+              <p class="name">Meta AI</p>
+              <div class="meta"><span class="pill">Chatbot</span></div>
+            </div>
+          </div>
+          <p class="desc">Meta’s assistant for everyday chat and creative prompting.</p>
+          <ul class="bullets"><li>Everyday chat</li><li>Creative prompts</li></ul>
+        </a>
+
+        <!-- 9 -->
+        <a class="card" href="https://chat.mistral.ai/" target="_blank" rel="noopener noreferrer"
+           data-keywords="mistral le chat chatbot">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://chat.mistral.ai" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>M</span>';">
+            </div>
+            <div>
+              <p class="name">Mistral Le Chat</p>
+              <div class="meta"><span class="pill">Chatbot</span></div>
+            </div>
+          </div>
+          <p class="desc">Fast chat interface for general assistance and iterative prompting.</p>
+          <ul class="bullets"><li>Fast iterations</li><li>Simple workflow</li></ul>
+        </a>
+
+        <!-- 10 -->
+        <a class="card" href="https://poe.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="poe hub multiple models bots">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://poe.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>P</span>';">
+            </div>
+            <div>
+              <p class="name">Poe</p>
+              <div class="meta"><span class="pill">Hub</span></div>
+            </div>
+          </div>
+          <p class="desc">A hub to access and compare multiple AI bots/models in one place.</p>
+          <ul class="bullets"><li>Model switching</li><li>Quick comparisons</li></ul>
+        </a>
+
+        <!-- 11 -->
+        <a class="card" href="https://notebooklm.google.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="notebooklm research documents summarize">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://notebooklm.google.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>N</span>';">
+            </div>
+            <div>
+              <p class="name">NotebookLM</p>
+              <div class="meta"><span class="pill">Research</span></div>
+            </div>
+          </div>
+          <p class="desc">Document-focused assistant for summaries and Q&A grounded in your sources.</p>
+          <ul class="bullets"><li>Source-based Q&A</li><li>Great for notes</li></ul>
+        </a>
+
+        <!-- 12 -->
+        <a class="card" href="https://elicit.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="elicit research papers literature">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://elicit.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>E</span>';">
+            </div>
+            <div>
+              <p class="name">Elicit</p>
+              <div class="meta"><span class="pill">Research</span></div>
+            </div>
+          </div>
+          <p class="desc">Research assistant for finding and synthesizing academic papers.</p>
+          <ul class="bullets"><li>Literature review</li><li>Paper synthesis</li></ul>
+        </a>
+
+        <!-- 13 -->
+        <a class="card" href="https://consensus.app/" target="_blank" rel="noopener noreferrer"
+           data-keywords="consensus research papers evidence">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://consensus.app" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>C</span>';">
+            </div>
+            <div>
+              <p class="name">Consensus</p>
+              <div class="meta"><span class="pill">Research</span></div>
+            </div>
+          </div>
+          <p class="desc">Find evidence in research papers and summarize key takeaways.</p>
+          <ul class="bullets"><li>Evidence-first</li><li>Paper summaries</li></ul>
+        </a>
+
+        <!-- 14 -->
+        <a class="card" href="https://www.midjourney.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="midjourney image generation art">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.midjourney.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>M</span>';">
+            </div>
+            <div>
+              <p class="name">Midjourney</p>
+              <div class="meta"><span class="pill">Image</span></div>
+            </div>
+          </div>
+          <p class="desc">High-quality image generation known for strong aesthetics and stylized visuals.</p>
+          <ul class="bullets"><li>Excellent style</li><li>Marketing & concept art</li></ul>
+        </a>
+
+        <!-- 15 -->
+        <a class="card" href="https://openai.com/index/dall-e-3/" target="_blank" rel="noopener noreferrer"
+           data-keywords="dall-e image generation openai">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://openai.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>D</span>';">
+            </div>
+            <div>
+              <p class="name">DALL·E</p>
+              <div class="meta"><span class="pill">Image</span></div>
+            </div>
+          </div>
+          <p class="desc">Image generation with strong prompt understanding for illustrations and concepts.</p>
+          <ul class="bullets"><li>Good prompt fidelity</li><li>Concept visuals</li></ul>
+        </a>
+
+        <!-- 16 -->
+        <a class="card" href="https://beta.dreamstudio.ai/" target="_blank" rel="noopener noreferrer"
+           data-keywords="dreamstudio stable diffusion image">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://beta.dreamstudio.ai" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>D</span>';">
+            </div>
+            <div>
+              <p class="name">DreamStudio (Stable Diffusion)</p>
+              <div class="meta"><span class="pill">Image</span></div>
+            </div>
+          </div>
+          <p class="desc">Stable Diffusion-based UI for variations and creative exploration.</p>
+          <ul class="bullets"><li>Flexible experimentation</li><li>Many variations</li></ul>
+        </a>
+
+        <!-- 17 -->
+        <a class="card" href="https://firefly.adobe.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="adobe firefly image design">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://firefly.adobe.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>A</span>';">
+            </div>
+            <div>
+              <p class="name">Adobe Firefly</p>
+              <div class="meta"><span class="pill">Image</span></div>
+            </div>
+          </div>
+          <p class="desc">Generative AI for creating/editing visuals in Adobe-centric workflows.</p>
+          <ul class="bullets"><li>Designer friendly</li><li>Rapid iterations</li></ul>
+        </a>
+
+        <!-- 18 -->
+        <a class="card" href="https://www.canva.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="canva design magic studio ai">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.canva.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>C</span>';">
+            </div>
+            <div>
+              <p class="name">Canva</p>
+              <div class="meta"><span class="pill">Design</span></div>
+            </div>
+          </div>
+          <p class="desc">Templates + AI to build marketing visuals, social posts, and slides quickly.</p>
+          <ul class="bullets"><li>Very popular</li><li>Fast brand assets</li></ul>
+        </a>
+
+        <!-- 19 -->
+        <a class="card" href="https://leonardo.ai/" target="_blank" rel="noopener noreferrer"
+           data-keywords="leonardo ai image assets">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://leonardo.ai" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>L</span>';">
+            </div>
+            <div>
+              <p class="name">Leonardo AI</p>
+              <div class="meta"><span class="pill">Image</span></div>
+            </div>
+          </div>
+          <p class="desc">Creator-oriented image generation for asset pipelines and consistent styles.</p>
+          <ul class="bullets"><li>Assets & consistency</li><li>Creator tooling</li></ul>
+        </a>
+
+        <!-- 20 -->
+        <a class="card" href="https://ideogram.ai/" target="_blank" rel="noopener noreferrer"
+           data-keywords="ideogram image text posters">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://ideogram.ai" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>I</span>';">
+            </div>
+            <div>
+              <p class="name">Ideogram</p>
+              <div class="meta"><span class="pill">Image</span></div>
+            </div>
+          </div>
+          <p class="desc">Text-forward image generation often used for posters, labels, and branding drafts.</p>
+          <ul class="bullets"><li>Text in images</li><li>Poster-style visuals</li></ul>
+        </a>
+
+        <!-- 21 -->
+        <a class="card" href="https://www.krea.ai/" target="_blank" rel="noopener noreferrer"
+           data-keywords="krea image creative iteration">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.krea.ai" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>K</span>';">
+            </div>
+            <div>
+              <p class="name">Krea</p>
+              <div class="meta"><span class="pill">Image</span></div>
+            </div>
+          </div>
+          <p class="desc">Fast iteration toolset for exploring styles and visual directions.</p>
+          <ul class="bullets"><li>Quick exploration</li><li>Rapid iteration</li></ul>
+        </a>
+
+        <!-- 22 -->
+        <a class="card" href="https://runwayml.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="runway video generation editing">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://runwayml.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>R</span>';">
+            </div>
+            <div>
+              <p class="name">Runway</p>
+              <div class="meta"><span class="pill">Video</span></div>
+            </div>
+          </div>
+          <p class="desc">AI video generation and editing suite used widely in creator workflows.</p>
+          <ul class="bullets"><li>Creator tooling</li><li>Short-form concepts</li></ul>
+        </a>
+
+        <!-- 23 -->
+        <a class="card" href="https://pika.art/" target="_blank" rel="noopener noreferrer"
+           data-keywords="pika video generation">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://pika.art" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>P</span>';">
+            </div>
+            <div>
+              <p class="name">Pika</p>
+              <div class="meta"><span class="pill">Video</span></div>
+            </div>
+          </div>
+          <p class="desc">Quick, stylized video generation for social-ready clips.</p>
+          <ul class="bullets"><li>Fast clips</li><li>Stylized output</li></ul>
+        </a>
+
+        <!-- 24 -->
+        <a class="card" href="https://lumalabs.ai/dream-machine" target="_blank" rel="noopener noreferrer"
+           data-keywords="luma dream machine video cinematic">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://lumalabs.ai" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>L</span>';">
+            </div>
+            <div>
+              <p class="name">Luma Dream Machine</p>
+              <div class="meta"><span class="pill">Video</span></div>
+            </div>
+          </div>
+          <p class="desc">Text/image-to-video generation with a cinematic motion focus.</p>
+          <ul class="bullets"><li>Cinematic feel</li><li>Storyboards & concepts</li></ul>
+        </a>
+
+        <!-- 25 -->
+        <a class="card" href="https://www.heygen.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="heygen video avatar">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.heygen.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>H</span>';">
+            </div>
+            <div>
+              <p class="name">HeyGen</p>
+              <div class="meta"><span class="pill">Video</span></div>
+            </div>
+          </div>
+          <p class="desc">Avatar-based videos for explainers, marketing, and localization workflows.</p>
+          <ul class="bullets"><li>Avatar videos</li><li>Explainers & marketing</li></ul>
+        </a>
+
+        <!-- 26 -->
+        <a class="card" href="https://www.synthesia.io/" target="_blank" rel="noopener noreferrer"
+           data-keywords="synthesia video avatar training">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.synthesia.io" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>S</span>';">
+            </div>
+            <div>
+              <p class="name">Synthesia</p>
+              <div class="meta"><span class="pill">Video</span></div>
+            </div>
+          </div>
+          <p class="desc">Enterprise-friendly avatar videos for training and internal communications.</p>
+          <ul class="bullets"><li>HR/training</li><li>Business workflows</li></ul>
+        </a>
+
+        <!-- 27 -->
+        <a class="card" href="https://www.capcut.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="capcut video editor ai captions">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.capcut.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>C</span>';">
+            </div>
+            <div>
+              <p class="name">CapCut</p>
+              <div class="meta"><span class="pill">Video</span></div>
+            </div>
+          </div>
+          <p class="desc">Widely used editor with AI captions/effects for fast short-form production.</p>
+          <ul class="bullets"><li>Short-form staple</li><li>Fast edits + effects</li></ul>
+        </a>
+
+        <!-- 28 -->
+        <a class="card" href="https://www.veed.io/" target="_blank" rel="noopener noreferrer"
+           data-keywords="veed video editor captions">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.veed.io" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>V</span>';">
+            </div>
+            <div>
+              <p class="name">VEED</p>
+              <div class="meta"><span class="pill">Video</span></div>
+            </div>
+          </div>
+          <p class="desc">Browser-based video editing with AI helpers for captions and quick workflows.</p>
+          <ul class="bullets"><li>Web-first editing</li><li>Caption workflows</li></ul>
+        </a>
+
+        <!-- 29 -->
+        <a class="card" href="https://elevenlabs.io/" target="_blank" rel="noopener noreferrer"
+           data-keywords="elevenlabs voice tts dubbing">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://elevenlabs.io" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>E</span>';">
+            </div>
+            <div>
+              <p class="name">ElevenLabs</p>
+              <div class="meta"><span class="pill">Voice</span></div>
+            </div>
+          </div>
+          <p class="desc">Voice generation for narration, dubbing, and natural-sounding voiceovers.</p>
+          <ul class="bullets"><li>Narration</li><li>Localization/dubbing</li></ul>
+        </a>
+
+        <!-- 30 -->
+        <a class="card" href="https://suno.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="suno music generation">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://suno.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>S</span>';">
+            </div>
+            <div>
+              <p class="name">Suno</p>
+              <div class="meta"><span class="pill">Music</span></div>
+            </div>
+          </div>
+          <p class="desc">Music generation for quick demos and creative exploration.</p>
+          <ul class="bullets"><li>Fast idea → music</li><li>Good for prototyping</li></ul>
+        </a>
+
+        <!-- 31 -->
+        <a class="card" href="https://www.udio.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="udio music generation">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.udio.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>U</span>';">
+            </div>
+            <div>
+              <p class="name">Udio</p>
+              <div class="meta"><span class="pill">Music</span></div>
+            </div>
+          </div>
+          <p class="desc">Generate and iterate on music tracks quickly across styles.</p>
+          <ul class="bullets"><li>Style exploration</li><li>Rapid drafts</li></ul>
+        </a>
+
+        <!-- 32 -->
+        <a class="card" href="https://podcast.adobe.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="adobe podcast audio enhance">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://podcast.adobe.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>A</span>';">
+            </div>
+            <div>
+              <p class="name">Adobe Podcast</p>
+              <div class="meta"><span class="pill">Audio</span></div>
+            </div>
+          </div>
+          <p class="desc">Audio enhancement for clearer speech and cleaner recordings.</p>
+          <ul class="bullets"><li>Speech cleanup</li><li>Podcast-style clarity</li></ul>
+        </a>
+
+        <!-- 33 -->
+        <a class="card" href="https://www.descript.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="descript audio video edit transcript">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.descript.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>D</span>';">
+            </div>
+            <div>
+              <p class="name">Descript</p>
+              <div class="meta"><span class="pill">Video/Audio</span></div>
+            </div>
+          </div>
+          <p class="desc">Edit video/audio like a document—great for interviews and repurposing content.</p>
+          <ul class="bullets"><li>Text-based editing</li><li>Creator/team workflows</li></ul>
+        </a>
+
+        <!-- 34 -->
+        <a class="card" href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer"
+           data-keywords="github copilot coding ide">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://github.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>G</span>';">
+            </div>
+            <div>
+              <p class="name">GitHub Copilot</p>
+              <div class="meta"><span class="pill">Coding</span></div>
+            </div>
+          </div>
+          <p class="desc">AI coding assistant inside IDEs for autocomplete, explanations, and faster iteration.</p>
+          <ul class="bullets"><li>Autocomplete + chat</li><li>Speeds daily dev work</li></ul>
+        </a>
+
+        <!-- 35 -->
+        <a class="card" href="https://cursor.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="cursor coding editor ai">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://cursor.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>C</span>';">
+            </div>
+            <div>
+              <p class="name">Cursor</p>
+              <div class="meta"><span class="pill">Coding</span></div>
+            </div>
+          </div>
+          <p class="desc">AI-first code editor for refactors, explanations, and fast coding workflows.</p>
+          <ul class="bullets"><li>Refactor assistance</li><li>Fast iteration</li></ul>
+        </a>
+
+        <!-- 36 -->
+        <a class="card" href="https://replit.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="replit coding online ide">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://replit.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>R</span>';">
+            </div>
+            <div>
+              <p class="name">Replit</p>
+              <div class="meta"><span class="pill">Coding</span></div>
+            </div>
+          </div>
+          <p class="desc">Browser-based coding environment for fast prototyping and running apps quickly.</p>
+          <ul class="bullets"><li>Fast prototyping</li><li>Quick demos</li></ul>
+        </a>
+
+        <!-- 37 -->
+        <a class="card" href="https://codeium.com/" target="_blank" rel="noopener noreferrer"
+           data-keywords="codeium coding assistant">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://codeium.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>C</span>';">
+            </div>
+            <div>
+              <p class="name">Codeium</p>
+              <div class="meta"><span class="pill">Coding</span></div>
+            </div>
+          </div>
+          <p class="desc">Coding assistant for suggestions and productivity boosts across IDE workflows.</p>
+          <ul class="bullets"><li>Code suggestions</li><li>Developer productivity</li></ul>
+        </a>
+
+        <!-- 38 -->
+        <a class="card" href="https://huggingface.co/" target="_blank" rel="noopener noreferrer"
+           data-keywords="hugging face models datasets spaces">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://huggingface.co" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>H</span>';">
+            </div>
+            <div>
+              <p class="name">Hugging Face</p>
+              <div class="meta"><span class="pill">Models</span></div>
+            </div>
+          </div>
+          <p class="desc">Major platform to explore models, datasets, and demos for ML experimentation.</p>
+          <ul class="bullets"><li>Model discovery</li><li>Hands-on demos</li></ul>
+        </a>
+
+        <!-- 39 -->
+        <a class="card" href="https://www.notion.com/product/ai" target="_blank" rel="noopener noreferrer"
+           data-keywords="notion ai productivity writing summarize">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.notion.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>N</span>';">
+            </div>
+            <div>
+              <p class="name">Notion AI</p>
+              <div class="meta"><span class="pill">Productivity</span></div>
+            </div>
+          </div>
+          <p class="desc">AI inside Notion for drafting, summarizing, and organizing docs and notes.</p>
+          <ul class="bullets"><li>Docs & wikis</li><li>Summaries & structure</li></ul>
+        </a>
+
+        <!-- 40 -->
+        <a class="card" href="https://zapier.com/ai" target="_blank" rel="noopener noreferrer"
+           data-keywords="zapier ai automation workflows">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://zapier.com" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>Z</span>';">
+            </div>
+            <div>
+              <p class="name">Zapier AI</p>
+              <div class="meta"><span class="pill">Automation</span></div>
+            </div>
+          </div>
+          <p class="desc">AI-assisted automation to connect apps and build productivity workflows faster.</p>
+          <ul class="bullets"><li>App automation</li><li>Workflow building</li></ul>
+        </a>
+
+        <!-- 41 -->
+        <a class="card" href="https://molt.bot/" target="_blank" rel="noopener noreferrer"
+           data-keywords="moltbot agent assistant tasks automation reminders">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://molt.bot" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>M</span>';">
+            </div>
+            <div>
+              <p class="name">Moltbot</p>
+              <div class="meta"><span class="pill">Agent</span></div>
+            </div>
+          </div>
+          <p class="desc">Agent-style assistant focused on proactive tasks, reminders, and automations.</p>
+          <ul class="bullets"><li>Task orchestration</li><li>Automation workflows</li></ul>
+        </a>
+
+        <!-- 42 -->
+        <a class="card" href="https://www.minimax.io/" target="_blank" rel="noopener noreferrer"
+           data-keywords="minimax models multimodal api">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.minimax.io" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>M</span>';">
+            </div>
+            <div>
+              <p class="name">MiniMax</p>
+              <div class="meta"><span class="pill">Models</span></div>
+            </div>
+          </div>
+          <p class="desc">Multimodal model provider with AI-native products and developer APIs.</p>
+          <ul class="bullets"><li>Multimodal models</li><li>Developer platform</li></ul>
+        </a>
+
+        <!-- 43 -->
+        <a class="card" href="https://gamma.app/" target="_blank" rel="noopener noreferrer"
+           data-keywords="gamma presentation ai deck slides pitch">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://gamma.app" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>G</span>';">
+            </div>
+            <div>
+              <p class="name">Gamma</p>
+              <div class="meta"><span class="pill">Presentation</span></div>
+            </div>
+          </div>
+          <p class="desc">AI-powered tool to generate clean presentations (and simple web pages) quickly.</p>
+          <ul class="bullets"><li>Fast pitch decks</li><li>Share/export options</li></ul>
+        </a>
+
+        <!-- 44 -->
+        <a class="card" href="https://www.beautiful.ai/" target="_blank" rel="noopener noreferrer"
+           data-keywords="beautiful ai presentation slides smart layout">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.beautiful.ai" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>B</span>';">
+            </div>
+            <div>
+              <p class="name">Beautiful.ai</p>
+              <div class="meta"><span class="pill">Presentation</span></div>
+            </div>
+          </div>
+          <p class="desc">AI presentation maker designed for speed and polish with smart slide layouts.</p>
+          <ul class="bullets"><li>Auto-layout slides</li><li>Client-ready quickly</li></ul>
+        </a>
+
+        <!-- 45 -->
+        <a class="card" href="https://www.presentations.ai/" target="_blank" rel="noopener noreferrer"
+           data-keywords="presentations ai presentation deck slides prompt to deck">
+          <span class="badge">Open ↗</span>
+          <div class="head">
+            <div class="icon">
+              <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.presentations.ai" alt=""
+                   onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>P</span>';">
+            </div>
+            <div>
+              <p class="name">Presentations.ai</p>
+              <div class="meta"><span class="pill">Presentation</span></div>
+            </div>
+          </div>
+          <p class="desc">Generate slide decks from prompts—focused on fast, clean business presentation output.</p>
+          <ul class="bullets"><li>Prompt → deck fast</li><li>Business slide focus</li></ul>
+        </a>
+
+      </section>
     </main>
 
-    <script src="main.js"></script>
+    <!-- Empty reserved ad space -->
+    <aside class="ad" aria-label="Ad space">
+      <div class="ad-slot"></div>
+    </aside>
+  </div>
+
+  <script>
+    // Search only (cards already exist in HTML)
+    (function(){
+      const q = document.getElementById("q");
+      const cards = Array.from(document.querySelectorAll(".card"));
+      const countEl = document.getElementById("count");
+      if (countEl) countEl.textContent = cards.length;
+
+      function normalize(s){ return (s || "").toLowerCase().trim(); }
+
+      q.addEventListener("input", () => {
+        const term = normalize(q.value);
+        let visible = 0;
+        for (const c of cards){
+          const kw = (c.dataset.keywords || "").toLowerCase();
+          const show = !term || kw.includes(term);
+          c.classList.toggle("hidden", !show);
+          if (show) visible++;
+        }
+        if (countEl) countEl.textContent = visible;
+      });
+    })();
+  </script>
 </body>
 </html>
