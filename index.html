@@ -85,6 +85,21 @@
     }
     .nav a:hover{border-bottom-color:currentColor;}
 
+    .readmore{
+      margin-top:8px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg,var(--panel),rgba(255,255,255,.03));
+      color:var(--text);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.2px;
+      cursor:pointer;
+    }
+    .readmore:hover{border-color:rgba(255,255,255,.24);}
+    [data-theme="light"] .readmore:hover{border-color:rgba(10,12,20,.24);}
+
     .theme-toggle{
       border:1px solid var(--border);
       background:linear-gradient(180deg,var(--panel),rgba(255,255,255,.03));
@@ -222,6 +237,7 @@
       margin:0 0 12px;
       box-shadow:var(--shadow);
     }
+    .collapsed{display:none;}
     .section h2{margin:0 0 8px;font-size:14px;font-weight:850;}
     .section p{margin:0 0 8px;color:var(--muted);font-size:12px;line-height:1.55;}
     .section p:last-child{margin-bottom:0;}
@@ -260,6 +276,9 @@
           <a href="#privacy">Privacy</a>
           <a href="#terms">Terms</a>
         </div>
+        <button id="readMore" class="readmore" type="button" aria-expanded="false">
+          Read more
+        </button>
       </div>
 
       <div class="controls">
@@ -282,29 +301,31 @@
 
   <div class="layout">
     <main>
-      <section id="about" class="section" aria-label="About this site">
-        <h2>About This Directory</h2>
-        <p>This is a curated, human-edited list of AI tools across chat, image, video, music, games, and productivity.
-           We focus on useful, differentiated tools and summarize each one so visitors can decide quickly.</p>
-        <p>I'm a man curating AI tools for creators and builders.</p>
-        <p>Every listing links directly to the official product site. We do not host or mirror third‑party content.</p>
-        <div class="contact">Contact: <a href="mailto:jcmoq83@gmail.com">jcmoq83@gmail.com</a></div>
-      </section>
+      <div id="introSections" class="collapsed">
+        <section id="about" class="section" aria-label="About this site">
+          <h2>About This Directory</h2>
+          <p>This is a curated, human-edited list of AI tools across chat, image, video, music, games, and productivity.
+             We focus on useful, differentiated tools and summarize each one so visitors can decide quickly.</p>
+          <p>I'm a man curating AI tools for creators and builders.</p>
+          <p>Every listing links directly to the official product site. We do not host or mirror third‑party content.</p>
+          <div class="contact">Contact: <a href="mailto:jcmoq83@gmail.com">jcmoq83@gmail.com</a></div>
+        </section>
 
-      <section id="how" class="section" aria-label="How we pick tools">
-        <h2>How We Pick Tools</h2>
-        <ul>
-          <li>Original value: tools should offer distinct capabilities, not re-skinned clones.</li>
-          <li>Clarity: each card includes a concise description and practical use cues.</li>
-          <li>User benefit: we prioritize tools that save time or enable new creative output.</li>
-        </ul>
-      </section>
+        <section id="how" class="section" aria-label="How we pick tools">
+          <h2>How We Pick Tools</h2>
+          <ul>
+            <li>Original value: tools should offer distinct capabilities, not re-skinned clones.</li>
+            <li>Clarity: each card includes a concise description and practical use cues.</li>
+            <li>User benefit: we prioritize tools that save time or enable new creative output.</li>
+          </ul>
+        </section>
 
-      <section id="updates" class="section" aria-label="Update policy">
-        <h2>Update Policy</h2>
-        <p>This directory is refreshed regularly as tools evolve, new products launch, or quality changes.
-           If a tool becomes inactive or misleading, it is removed.</p>
-      </section>
+        <section id="updates" class="section" aria-label="Update policy">
+          <h2>Update Policy</h2>
+          <p>This directory is refreshed regularly as tools evolve, new products launch, or quality changes.
+             If a tool becomes inactive or misleading, it is removed.</p>
+        </section>
+      </div>
 
       <section id="grid" class="grid" aria-label="AI tools grid">
 
@@ -1413,6 +1434,17 @@
           const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
           localStorage.setItem("theme", nextTheme);
           applyTheme(nextTheme);
+        });
+      }
+
+      const readMoreBtn = document.getElementById("readMore");
+      const introSections = document.getElementById("introSections");
+      if (readMoreBtn && introSections){
+        readMoreBtn.addEventListener("click", () => {
+          const isHidden = introSections.classList.toggle("collapsed");
+          readMoreBtn.textContent = isHidden ? "Read more" : "Hide details";
+          readMoreBtn.setAttribute("aria-expanded", String(!isHidden));
+          if (!isHidden) introSections.scrollIntoView({behavior:"smooth", block:"start"});
         });
       }
 
