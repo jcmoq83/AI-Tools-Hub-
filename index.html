@@ -52,6 +52,8 @@
     .subtitle{margin:6px 0 0;color:var(--muted);font-size:12px;line-height:1.35;}
     .hint{margin-top:6px;font-size:11px;color:rgba(255,255,255,.55);}
     [data-theme="light"] .hint{color:rgba(10,12,20,.55);}
+    .click-note{margin-top:4px;font-size:11px;color:rgba(255,255,255,.70);}
+    [data-theme="light"] .click-note{color:rgba(10,12,20,.62);}
 
     .controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
     .search{
@@ -146,19 +148,6 @@
       border-color:var(--focus);
     }
 
-    .badge{
-      position:absolute;top:12px;right:12px;font-size:11px;
-      color:rgba(255,255,255,.78);
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.14);
-      padding:6px 9px;border-radius:999px;
-      backdrop-filter:blur(10px);
-    }
-    [data-theme="light"] .badge{
-      color:rgba(10,12,20,.70);
-      background:rgba(10,12,20,.06);
-      border-color:rgba(10,12,20,.12);
-    }
 
     .head{display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:center;}
     .icon{
@@ -223,6 +212,7 @@
         <h1>AI Tools Hub</h1>
         <p class="subtitle"><span id="count">45</span> tools • 5×9 layout (scrollable)</p>
         <div class="hint">Search only filters (cards are pre-rendered, so they always show).</div>
+        <div class="click-note">Click any AI to open it.</div>
       </div>
 
       <div class="controls">
@@ -250,8 +240,7 @@
         <!-- 41 -->
         <a class="card" href="https://molt.bot/" target="_blank" rel="noopener noreferrer"
            data-keywords="moltbot agent assistant tasks automation reminders">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://molt.bot" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>M</span>';">
@@ -268,8 +257,7 @@
         <!-- 1 -->
         <a class="card" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="chatgpt chatbot writing analysis coding multimodal openai">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://chatgpt.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>C</span>';">
@@ -286,8 +274,7 @@
         <!-- 2 -->
         <a class="card" href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="gemini chatbot google assistant writing summarize">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://gemini.google.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>G</span>';">
@@ -304,8 +291,7 @@
         <!-- 3 -->
         <a class="card" href="https://claude.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="claude chatbot long document writing analysis">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://claude.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>C</span>';">
@@ -322,8 +308,7 @@
         <!-- 4 -->
         <a class="card" href="https://copilot.microsoft.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="microsoft copilot chatbot productivity">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://copilot.microsoft.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>M</span>';">
@@ -340,8 +325,7 @@
         <!-- 5 -->
         <a class="card" href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer"
            data-keywords="perplexity research search answer sources">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.perplexity.ai" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>P</span>';">
@@ -358,8 +342,7 @@
         <!-- 6 -->
         <a class="card" href="https://chat.deepseek.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="deepseek chat chatbot reasoning">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://chat.deepseek.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>D</span>';">
@@ -376,8 +359,7 @@
         <!-- 7 -->
         <a class="card" href="https://grok.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="grok chatbot xai brainstorming">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://grok.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>G</span>';">
@@ -394,8 +376,7 @@
         <!-- 8 -->
         <a class="card" href="https://www.meta.ai/" target="_blank" rel="noopener noreferrer"
            data-keywords="meta ai chatbot creative">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.meta.ai" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>M</span>';">
@@ -412,8 +393,7 @@
         <!-- 9 -->
         <a class="card" href="https://chat.mistral.ai/" target="_blank" rel="noopener noreferrer"
            data-keywords="mistral le chat chatbot">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://chat.mistral.ai" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>M</span>';">
@@ -430,8 +410,7 @@
         <!-- 10 -->
         <a class="card" href="https://poe.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="poe hub multiple models bots">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://poe.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>P</span>';">
@@ -448,8 +427,7 @@
         <!-- 11 -->
         <a class="card" href="https://notebooklm.google.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="notebooklm research documents summarize">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://notebooklm.google.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>N</span>';">
@@ -466,8 +444,7 @@
         <!-- 12 -->
         <a class="card" href="https://elicit.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="elicit research papers literature">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://elicit.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>E</span>';">
@@ -484,8 +461,7 @@
         <!-- 13 -->
         <a class="card" href="https://consensus.app/" target="_blank" rel="noopener noreferrer"
            data-keywords="consensus research papers evidence">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://consensus.app" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>C</span>';">
@@ -502,8 +478,7 @@
         <!-- 14 -->
         <a class="card" href="https://www.midjourney.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="midjourney image generation art">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.midjourney.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>M</span>';">
@@ -520,8 +495,7 @@
         <!-- 15 -->
         <a class="card" href="https://openai.com/index/dall-e-3/" target="_blank" rel="noopener noreferrer"
            data-keywords="dall-e image generation openai">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://openai.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>D</span>';">
@@ -538,8 +512,7 @@
         <!-- 16 -->
         <a class="card" href="https://beta.dreamstudio.ai/" target="_blank" rel="noopener noreferrer"
            data-keywords="dreamstudio stable diffusion image">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://beta.dreamstudio.ai" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>D</span>';">
@@ -556,8 +529,7 @@
         <!-- 17 -->
         <a class="card" href="https://firefly.adobe.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="adobe firefly image design">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://firefly.adobe.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>A</span>';">
@@ -574,8 +546,7 @@
         <!-- 18 -->
         <a class="card" href="https://www.canva.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="canva design magic studio ai">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.canva.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>C</span>';">
@@ -592,8 +563,7 @@
         <!-- 19 -->
         <a class="card" href="https://leonardo.ai/" target="_blank" rel="noopener noreferrer"
            data-keywords="leonardo ai image assets">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://leonardo.ai" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>L</span>';">
@@ -610,8 +580,7 @@
         <!-- 20 -->
         <a class="card" href="https://ideogram.ai/" target="_blank" rel="noopener noreferrer"
            data-keywords="ideogram image text posters">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://ideogram.ai" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>I</span>';">
@@ -628,8 +597,7 @@
         <!-- 21 -->
         <a class="card" href="https://www.krea.ai/" target="_blank" rel="noopener noreferrer"
            data-keywords="krea image creative iteration">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.krea.ai" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>K</span>';">
@@ -646,8 +614,7 @@
         <!-- 22 -->
         <a class="card" href="https://runwayml.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="runway video generation editing">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://runwayml.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>R</span>';">
@@ -664,8 +631,7 @@
         <!-- 23 -->
         <a class="card" href="https://pika.art/" target="_blank" rel="noopener noreferrer"
            data-keywords="pika video generation">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://pika.art" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>P</span>';">
@@ -682,8 +648,7 @@
         <!-- 24 -->
         <a class="card" href="https://lumalabs.ai/dream-machine" target="_blank" rel="noopener noreferrer"
            data-keywords="luma dream machine video cinematic">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://lumalabs.ai" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>L</span>';">
@@ -700,8 +665,7 @@
         <!-- 25 -->
         <a class="card" href="https://www.heygen.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="heygen video avatar">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.heygen.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>H</span>';">
@@ -718,8 +682,7 @@
         <!-- 26 -->
         <a class="card" href="https://www.synthesia.io/" target="_blank" rel="noopener noreferrer"
            data-keywords="synthesia video avatar training">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.synthesia.io" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>S</span>';">
@@ -736,8 +699,7 @@
         <!-- 27 -->
         <a class="card" href="https://www.capcut.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="capcut video editor ai captions">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.capcut.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>C</span>';">
@@ -754,8 +716,7 @@
         <!-- 28 -->
         <a class="card" href="https://www.veed.io/" target="_blank" rel="noopener noreferrer"
            data-keywords="veed video editor captions">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.veed.io" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>V</span>';">
@@ -772,8 +733,7 @@
         <!-- 29 -->
         <a class="card" href="https://elevenlabs.io/" target="_blank" rel="noopener noreferrer"
            data-keywords="elevenlabs voice tts dubbing">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://elevenlabs.io" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>E</span>';">
@@ -790,8 +750,7 @@
         <!-- 30 -->
         <a class="card" href="https://suno.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="suno music generation">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://suno.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>S</span>';">
@@ -808,8 +767,7 @@
         <!-- 31 -->
         <a class="card" href="https://www.udio.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="udio music generation">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.udio.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>U</span>';">
@@ -826,8 +784,7 @@
         <!-- 32 -->
         <a class="card" href="https://podcast.adobe.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="adobe podcast audio enhance">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://podcast.adobe.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>A</span>';">
@@ -844,8 +801,7 @@
         <!-- 33 -->
         <a class="card" href="https://www.descript.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="descript audio video edit transcript">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.descript.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>D</span>';">
@@ -862,8 +818,7 @@
         <!-- 34 -->
         <a class="card" href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer"
            data-keywords="github copilot coding ide">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://github.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>G</span>';">
@@ -880,8 +835,7 @@
         <!-- 35 -->
         <a class="card" href="https://cursor.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="cursor coding editor ai">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://cursor.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>C</span>';">
@@ -898,8 +852,7 @@
         <!-- 36 -->
         <a class="card" href="https://replit.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="replit coding online ide">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://replit.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>R</span>';">
@@ -916,8 +869,7 @@
         <!-- 37 -->
         <a class="card" href="https://codeium.com/" target="_blank" rel="noopener noreferrer"
            data-keywords="codeium coding assistant">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://codeium.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>C</span>';">
@@ -934,8 +886,7 @@
         <!-- 38 -->
         <a class="card" href="https://huggingface.co/" target="_blank" rel="noopener noreferrer"
            data-keywords="hugging face models datasets spaces">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://huggingface.co" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>H</span>';">
@@ -952,8 +903,7 @@
         <!-- 39 -->
         <a class="card" href="https://www.notion.com/product/ai" target="_blank" rel="noopener noreferrer"
            data-keywords="notion ai productivity writing summarize">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.notion.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>N</span>';">
@@ -970,8 +920,7 @@
         <!-- 40 -->
         <a class="card" href="https://zapier.com/ai" target="_blank" rel="noopener noreferrer"
            data-keywords="zapier ai automation workflows">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://zapier.com" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>Z</span>';">
@@ -988,8 +937,7 @@
         <!-- 42 -->
         <a class="card" href="https://www.minimax.io/" target="_blank" rel="noopener noreferrer"
            data-keywords="minimax models multimodal api">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.minimax.io" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>M</span>';">
@@ -1006,8 +954,7 @@
         <!-- 43 -->
         <a class="card" href="https://gamma.app/" target="_blank" rel="noopener noreferrer"
            data-keywords="gamma presentation ai deck slides pitch">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://gamma.app" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>G</span>';">
@@ -1024,8 +971,7 @@
         <!-- 44 -->
         <a class="card" href="https://www.beautiful.ai/" target="_blank" rel="noopener noreferrer"
            data-keywords="beautiful ai presentation slides smart layout">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.beautiful.ai" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>B</span>';">
@@ -1042,8 +988,7 @@
         <!-- 45 -->
         <a class="card" href="https://www.presentations.ai/" target="_blank" rel="noopener noreferrer"
            data-keywords="presentations ai presentation deck slides prompt to deck">
-          <span class="badge">Open ↗</span>
-          <div class="head">
+                    <div class="head">
             <div class="icon">
               <img src="https://www.google.com/s2/favicons?sz=64&domain_url=https://www.presentations.ai" alt=""
                    onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;fallback&quot;>P</span>';">
