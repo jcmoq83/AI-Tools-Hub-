@@ -1,14 +1,48 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-WEB 미니 게임 천국</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+
+    <header>
+        <div class="header-container">
+            <h1>AI-WEB 미니 게임 천국</h1>
+            <nav>
+                <a href="#lotto-game" class="active">로또 번호 생성기</a>
+                <a href="#rps-game">가위바위보 게임</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="lotto-game" class="game-section active">
+            <h2>로또 번호 생성기</h2>
+            <div id="lotto-numbers" class="lotto-numbers"></div>
+            <button id="generate-btn">번호 생성</button>
+        </section>
+
+        <section id="rps-game" class="game-section">
+            <h2>가위바위보 게임</h2>
+            <div class="rps-scores">
+                <p>플레이어: <span id="player-score">0</span></p>
+                <p>컴퓨터: <span id="computer-score">0</span></p>
+            </div>
+            <div class="rps-choices">
+                <button class="rps-btn" data-choice="rock">✊</button>
+                <button class="rps-btn" data-choice="scissors">✌️</button>
+                <button class="rps-btn" data-choice="paper">🖐️</button>
+            </div>
+            <div id="rps-result" class="rps-result">
+                <p>게임을 시작하세요!</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="main.js"></script>
 </body>
 </html>
