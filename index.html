@@ -222,12 +222,18 @@
       margin:0 0 12px;
       box-shadow:var(--shadow);
     }
-    .collapsed{display:none;}
+    .section-group{display:none;}
+    .section-group.active{display:block;}
     .section h2{margin:0 0 8px;font-size:14px;font-weight:850;}
     .section p{margin:0 0 8px;color:var(--muted);font-size:12px;line-height:1.55;}
     .section p:last-child{margin-bottom:0;}
     .section ul{margin:0;padding-left:16px;color:var(--muted);font-size:12px;line-height:1.5;}
     .section li{margin:2px 0;}
+    .contact{
+      font-size:11px;color:var(--muted);margin-top:8px;
+    }
+    .contact a{color:inherit;text-decoration:none;border-bottom:1px dotted transparent;}
+    .contact a:hover{border-bottom-color:currentColor;}
 
     .noscript{
       margin:10px 18px 0;max-width:1900px;margin-left:auto;margin-right:auto;
@@ -283,15 +289,17 @@
 
   <div class="layout">
     <main>
-      <div id="introSections" class="collapsed">
+      <div id="group-about" class="section-group">
         <section id="about" class="section" aria-label="About this site">
           <h2>About This Directory</h2>
           <p>This is a curated, human-edited list of AI tools across chat, image, video, music, games, and productivity.
              We focus on useful, differentiated tools and summarize each one so visitors can decide quickly.</p>
           <p>I'm a man curating AI tools for creators and builders.</p>
-        <p>Every listing links directly to the official product site. We do not host or mirror third‑party content.</p>
+          <p>Every listing links directly to the official product site. We do not host or mirror third‑party content.</p>
         </section>
+      </div>
 
+      <div id="group-how" class="section-group">
         <section id="how" class="section" aria-label="How we pick tools">
           <h2>How We Pick Tools</h2>
           <ul>
@@ -300,11 +308,29 @@
             <li>User benefit: we prioritize tools that save time or enable new creative output.</li>
           </ul>
         </section>
+      </div>
 
+      <div id="group-updates" class="section-group">
         <section id="updates" class="section" aria-label="Update policy">
           <h2>Update Policy</h2>
           <p>This directory is refreshed regularly as tools evolve, new products launch, or quality changes.
              If a tool becomes inactive or misleading, it is removed.</p>
+        </section>
+      </div>
+
+      <div id="group-privacy" class="section-group">
+        <section id="privacy" class="section" aria-label="Privacy policy">
+          <h2>Privacy</h2>
+          <p>We do not require account creation. Basic analytics may be used to improve the experience.
+             Ads may be personalized based on your settings in your browser or Google account.</p>
+        </section>
+      </div>
+
+      <div id="group-terms" class="section-group">
+        <section id="terms" class="section" aria-label="Terms of use">
+          <h2>Terms</h2>
+          <p>Listings are provided for informational purposes only. Product names and trademarks belong to their owners.
+             Use third‑party tools according to each provider’s terms.</p>
         </section>
       </div>
 
@@ -325,7 +351,6 @@
           </div>
           <p class="desc">Agent-style assistant focused on proactive tasks, reminders, and automations.</p>
           <ul class="bullets"><li>Task orchestration</li><li>Automation workflows</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -344,7 +369,6 @@
           </div>
           <p class="desc">General-purpose assistant for writing, reasoning, coding, and multimodal tasks.</p>
           <ul class="bullets"><li>Strong all-rounder</li><li>Great for drafts + analysis</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -363,7 +387,6 @@
           </div>
           <p class="desc">Google’s assistant for Q&A, summarization, drafting, and Google ecosystem workflows.</p>
           <ul class="bullets"><li>Good for Google users</li><li>Fast answers & summaries</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -382,7 +405,6 @@
           </div>
           <p class="desc">Well-known for strong writing quality and structured long-document handling.</p>
           <ul class="bullets"><li>Great for long context</li><li>Careful writing tone</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -401,7 +423,6 @@
           </div>
           <p class="desc">Microsoft’s assistant for web queries and productivity-oriented workflows.</p>
           <ul class="bullets"><li>Good for Microsoft users</li><li>Daily work helper</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -420,7 +441,6 @@
           </div>
           <p class="desc">Search-first AI for researching topics and exploring directions quickly.</p>
           <ul class="bullets"><li>Research workflows</li><li>Fast discovery</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -439,7 +459,6 @@
           </div>
           <p class="desc">Chat-based assistant widely used for general Q&A and reasoning-style prompts.</p>
           <ul class="bullets"><li>Structured Q&A</li><li>Good for analysis prompts</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -458,7 +477,6 @@
           </div>
           <p class="desc">Conversational assistant for Q&A, brainstorming, and iterative exploration.</p>
           <ul class="bullets"><li>Quick back-and-forth</li><li>Idea generation</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -477,7 +495,6 @@
           </div>
           <p class="desc">Meta’s assistant for everyday chat and creative prompting.</p>
           <ul class="bullets"><li>Everyday chat</li><li>Creative prompts</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -496,7 +513,6 @@
           </div>
           <p class="desc">Fast chat interface for general assistance and iterative prompting.</p>
           <ul class="bullets"><li>Fast iterations</li><li>Simple workflow</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -515,7 +531,6 @@
           </div>
           <p class="desc">A hub to access and compare multiple AI bots/models in one place.</p>
           <ul class="bullets"><li>Model switching</li><li>Quick comparisons</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -534,7 +549,6 @@
           </div>
           <p class="desc">Document-focused assistant for summaries and Q&A grounded in your sources.</p>
           <ul class="bullets"><li>Source-based Q&A</li><li>Great for notes</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -553,7 +567,6 @@
           </div>
           <p class="desc">Research assistant for finding and synthesizing academic papers.</p>
           <ul class="bullets"><li>Literature review</li><li>Paper synthesis</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -572,7 +585,6 @@
           </div>
           <p class="desc">Find evidence in research papers and summarize key takeaways.</p>
           <ul class="bullets"><li>Evidence-first</li><li>Paper summaries</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -591,7 +603,6 @@
           </div>
           <p class="desc">High-quality image generation known for strong aesthetics and stylized visuals.</p>
           <ul class="bullets"><li>Excellent style</li><li>Marketing & concept art</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -610,7 +621,6 @@
           </div>
           <p class="desc">Image generation with strong prompt understanding for illustrations and concepts.</p>
           <ul class="bullets"><li>Good prompt fidelity</li><li>Concept visuals</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -629,7 +639,6 @@
           </div>
           <p class="desc">Stable Diffusion-based UI for variations and creative exploration.</p>
           <ul class="bullets"><li>Flexible experimentation</li><li>Many variations</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -648,7 +657,6 @@
           </div>
           <p class="desc">Generative AI for creating/editing visuals in Adobe-centric workflows.</p>
           <ul class="bullets"><li>Designer friendly</li><li>Rapid iterations</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -667,7 +675,6 @@
           </div>
           <p class="desc">Templates + AI to build marketing visuals, social posts, and slides quickly.</p>
           <ul class="bullets"><li>Very popular</li><li>Fast brand assets</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -686,7 +693,6 @@
           </div>
           <p class="desc">Creator-oriented image generation for asset pipelines and consistent styles.</p>
           <ul class="bullets"><li>Assets & consistency</li><li>Creator tooling</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -705,7 +711,6 @@
           </div>
           <p class="desc">Text-forward image generation often used for posters, labels, and branding drafts.</p>
           <ul class="bullets"><li>Text in images</li><li>Poster-style visuals</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -724,7 +729,6 @@
           </div>
           <p class="desc">Fast iteration toolset for exploring styles and visual directions.</p>
           <ul class="bullets"><li>Quick exploration</li><li>Rapid iteration</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -743,7 +747,6 @@
           </div>
           <p class="desc">AI video generation and editing suite used widely in creator workflows.</p>
           <ul class="bullets"><li>Creator tooling</li><li>Short-form concepts</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -762,7 +765,6 @@
           </div>
           <p class="desc">Quick, stylized video generation for social-ready clips.</p>
           <ul class="bullets"><li>Fast clips</li><li>Stylized output</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -781,7 +783,6 @@
           </div>
           <p class="desc">Text/image-to-video generation with a cinematic motion focus.</p>
           <ul class="bullets"><li>Cinematic feel</li><li>Storyboards & concepts</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -800,7 +801,6 @@
           </div>
           <p class="desc">Avatar-based videos for explainers, marketing, and localization workflows.</p>
           <ul class="bullets"><li>Avatar videos</li><li>Explainers & marketing</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -819,7 +819,6 @@
           </div>
           <p class="desc">Enterprise-friendly avatar videos for training and internal communications.</p>
           <ul class="bullets"><li>HR/training</li><li>Business workflows</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -838,7 +837,6 @@
           </div>
           <p class="desc">Widely used editor with AI captions/effects for fast short-form production.</p>
           <ul class="bullets"><li>Short-form staple</li><li>Fast edits + effects</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -857,7 +855,6 @@
           </div>
           <p class="desc">Browser-based video editing with AI helpers for captions and quick workflows.</p>
           <ul class="bullets"><li>Web-first editing</li><li>Caption workflows</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -876,7 +873,6 @@
           </div>
           <p class="desc">Voice generation for narration, dubbing, and natural-sounding voiceovers.</p>
           <ul class="bullets"><li>Narration</li><li>Localization/dubbing</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -895,7 +891,6 @@
           </div>
           <p class="desc">Music generation for quick demos and creative exploration.</p>
           <ul class="bullets"><li>Fast idea → music</li><li>Good for prototyping</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -914,7 +909,6 @@
           </div>
           <p class="desc">Generate and iterate on music tracks quickly across styles.</p>
           <ul class="bullets"><li>Style exploration</li><li>Rapid drafts</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -933,7 +927,6 @@
           </div>
           <p class="desc">Audio enhancement for clearer speech and cleaner recordings.</p>
           <ul class="bullets"><li>Speech cleanup</li><li>Podcast-style clarity</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -952,7 +945,6 @@
           </div>
           <p class="desc">Edit video/audio like a document—great for interviews and repurposing content.</p>
           <ul class="bullets"><li>Text-based editing</li><li>Creator/team workflows</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -971,7 +963,6 @@
           </div>
           <p class="desc">AI coding assistant inside IDEs for autocomplete, explanations, and faster iteration.</p>
           <ul class="bullets"><li>Autocomplete + chat</li><li>Speeds daily dev work</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -990,7 +981,6 @@
           </div>
           <p class="desc">AI-first code editor for refactors, explanations, and fast coding workflows.</p>
           <ul class="bullets"><li>Refactor assistance</li><li>Fast iteration</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1009,7 +999,6 @@
           </div>
           <p class="desc">Browser-based coding environment for fast prototyping and running apps quickly.</p>
           <ul class="bullets"><li>Fast prototyping</li><li>Quick demos</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1028,7 +1017,6 @@
           </div>
           <p class="desc">Coding assistant for suggestions and productivity boosts across IDE workflows.</p>
           <ul class="bullets"><li>Code suggestions</li><li>Developer productivity</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1047,7 +1035,6 @@
           </div>
           <p class="desc">Major platform to explore models, datasets, and demos for ML experimentation.</p>
           <ul class="bullets"><li>Model discovery</li><li>Hands-on demos</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1066,7 +1053,6 @@
           </div>
           <p class="desc">AI inside Notion for drafting, summarizing, and organizing docs and notes.</p>
           <ul class="bullets"><li>Docs & wikis</li><li>Summaries & structure</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1085,7 +1071,6 @@
           </div>
           <p class="desc">AI-assisted automation to connect apps and build productivity workflows faster.</p>
           <ul class="bullets"><li>App automation</li><li>Workflow building</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1104,7 +1089,6 @@
           </div>
           <p class="desc">Multimodal model provider with AI-native products and developer APIs.</p>
           <ul class="bullets"><li>Multimodal models</li><li>Developer platform</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1123,7 +1107,6 @@
           </div>
           <p class="desc">AI-powered tool to generate clean presentations (and simple web pages) quickly.</p>
           <ul class="bullets"><li>Fast pitch decks</li><li>Share/export options</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1142,7 +1125,6 @@
           </div>
           <p class="desc">AI presentation maker designed for speed and polish with smart slide layouts.</p>
           <ul class="bullets"><li>Auto-layout slides</li><li>Client-ready quickly</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1161,7 +1143,6 @@
           </div>
           <p class="desc">Generate slide decks from prompts—focused on fast, clean business presentation output.</p>
           <ul class="bullets"><li>Prompt → deck fast</li><li>Business slide focus</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1180,7 +1161,6 @@
           </div>
           <p class="desc">Text-to-image generator known for painterly and cinematic styles.</p>
           <ul class="bullets"><li>High quality art</li><li>Distinct styles</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1199,7 +1179,6 @@
           </div>
           <p class="desc">Create game-ready concept art and assets with AI models.</p>
           <ul class="bullets"><li>Asset generation</li><li>Style control</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1218,7 +1197,6 @@
           </div>
           <p class="desc">Generate and explore AI art with community prompts and styles.</p>
           <ul class="bullets"><li>Prompt gallery</li><li>Multiple models</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1237,7 +1215,6 @@
           </div>
           <p class="desc">Blend and evolve images to create new characters and artworks.</p>
           <ul class="bullets"><li>Image mixing</li><li>Character design</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1256,7 +1233,6 @@
           </div>
           <p class="desc">Realtime AI art generation and creative exploration tools.</p>
           <ul class="bullets"><li>Realtime results</li><li>Creative control</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1275,7 +1251,6 @@
           </div>
           <p class="desc">Generate meme captions from prompts and topics.</p>
           <ul class="bullets"><li>Prompt → meme</li><li>Quick shareables</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1294,7 +1269,6 @@
           </div>
           <p class="desc">Auto-generate memes from prompts and classic templates.</p>
           <ul class="bullets"><li>Classic templates</li><li>Fast results</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1313,7 +1287,6 @@
           </div>
           <p class="desc">Create memes with AI captions and quick edits.</p>
           <ul class="bullets"><li>Caption help</li><li>Easy edits</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1332,7 +1305,6 @@
           </div>
           <p class="desc">Generate game ideas and references to speed up game design.</p>
           <ul class="bullets"><li>Idea generator</li><li>Game research</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1351,7 +1323,6 @@
           </div>
           <p class="desc">Generate game art assets and characters with custom styles.</p>
           <ul class="bullets"><li>Custom models</li><li>Game assets</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
@@ -1370,23 +1341,11 @@
           </div>
           <p class="desc">Create playable games and experiences with AI assistance.</p>
           <ul class="bullets"><li>No-code games</li><li>Playable builds</li></ul>
-          </ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
 
       </section>
 
-      <section id="privacy" class="section" aria-label="Privacy policy">
-        <h2>Privacy</h2>
-        <p>We do not require account creation. Basic analytics may be used to improve the experience.
-           Ads may be personalized based on your settings in your browser or Google account.</p>
-      </section>
-
-      <section id="terms" class="section" aria-label="Terms of use">
-        <h2>Terms</h2>
-        <p>Listings are provided for informational purposes only. Product names and trademarks belong to their owners.
-           Use third‑party tools according to each provider’s terms.</p>
-      </section>
       <div class="contact" aria-label="Contact email">Contact: <a href="mailto:jcmoq83@gmail.com">jcmoq83@gmail.com</a></div>
     </main>
   </div>
@@ -1419,22 +1378,44 @@
         });
       }
 
-      const introSections = document.getElementById("introSections");
+      const groups = {
+        "#about": document.getElementById("group-about"),
+        "#how": document.getElementById("group-how"),
+        "#updates": document.getElementById("group-updates"),
+        "#privacy": document.getElementById("group-privacy"),
+        "#terms": document.getElementById("group-terms"),
+      };
       const navLinks = Array.from(document.querySelectorAll(".nav a[href^=\"#\"]"));
-      function openIntroSections(){
-        if (introSections && introSections.classList.contains("collapsed")){
-          introSections.classList.remove("collapsed");
+
+      function hideAllGroups(){
+        Object.values(groups).forEach((g) => g && g.classList.remove("active"));
+      }
+
+      function toggleGroup(hash){
+        const group = groups[hash];
+        if (!group) return;
+        const willOpen = !group.classList.contains("active");
+        hideAllGroups();
+        if (willOpen){
+          group.classList.add("active");
+          const target = document.querySelector(hash);
+          if (target) target.scrollIntoView({behavior:"smooth", block:"start"});
         }
       }
-      if (navLinks.length && introSections){
+
+      if (navLinks.length){
         for (const link of navLinks){
-          link.addEventListener("click", () => {
-            openIntroSections();
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const hash = link.getAttribute("href");
+            toggleGroup(hash);
+            history.replaceState(null, "", hash);
           });
         }
       }
+
       if (location.hash){
-        openIntroSections();
+        toggleGroup(location.hash);
       }
 
       const q = document.getElementById("q");
@@ -1459,8 +1440,3 @@
   </script>
 </body>
 </html>
-    .contact{
-      font-size:11px;color:var(--muted);margin-top:8px;
-    }
-    .contact a{color:inherit;text-decoration:none;border-bottom:1px dotted transparent;}
-    .contact a:hover{border-bottom-color:currentColor;}
