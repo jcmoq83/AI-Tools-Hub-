@@ -1391,16 +1391,26 @@
         Object.values(groups).forEach((g) => g && g.classList.remove("active"));
       }
 
+      function openGroup(hash){
+        const group = groups[hash];
+        if (!group) return;
+        hideAllGroups();
+        group.classList.add("active");
+        const target = document.querySelector(hash);
+        if (target) target.scrollIntoView({behavior:"smooth", block:"start"});
+      }
+
       function toggleGroup(hash){
         const group = groups[hash];
         if (!group) return;
-        const willOpen = !group.classList.contains("active");
-        hideAllGroups();
-        if (willOpen){
-          group.classList.add("active");
-          const target = document.querySelector(hash);
-          if (target) target.scrollIntoView({behavior:"smooth", block:"start"});
+        const isOpen = group.classList.contains("active");
+        if (isOpen){
+          group.classList.remove("active");
+          history.replaceState(null, "", "#");
+          return;
         }
+        openGroup(hash);
+        history.replaceState(null, "", hash);
       }
 
       if (navLinks.length){
@@ -1409,13 +1419,18 @@
             e.preventDefault();
             const hash = link.getAttribute("href");
             toggleGroup(hash);
-            history.replaceState(null, "", hash);
           });
         }
       }
 
+      window.addEventListener("hashchange", () => {
+        if (location.hash){
+          openGroup(location.hash);
+        }
+      });
+
       if (location.hash){
-        toggleGroup(location.hash);
+        openGroup(location.hash);
       }
 
       const q = document.getElementById("q");
