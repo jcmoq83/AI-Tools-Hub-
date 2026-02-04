@@ -49,7 +49,7 @@
     }
 
     header{padding:14px 18px 12px;max-width:1900px;margin:0 auto;}
-    .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+    .topbar{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;}
     .titleblock{min-width:260px;}
     h1{margin:0;font-size:18px;letter-spacing:.2px;font-weight:850;}
     .subtitle{margin:6px 0 0;color:var(--muted);font-size:12px;line-height:1.35;}
@@ -58,19 +58,19 @@
     .click-note{margin-top:4px;font-size:11px;color:rgba(255,255,255,.70);}
     [data-theme="light"] .click-note{color:rgba(10,12,20,.62);}
 
-    .controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    .controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1 1 100%;justify-content:center;}
     .search{
       display:flex;align-items:center;gap:10px;
       background:var(--panel);
       border:1px solid var(--border);
       border-radius:999px;
-      padding:10px 12px;
+      padding:14px 18px;
       box-shadow:var(--shadow);
-      width:min(820px,100%);
+      width:min(940px,100%);
     }
     .search input{
       width:100%;border:0;outline:none;background:transparent;
-      color:var(--text);font-size:13px;
+      color:var(--text);font-size:14px;
     }
     .search input::placeholder{color:rgba(255,255,255,.45);}
     [data-theme="light"] .search input::placeholder{color:rgba(10,12,20,.45);}
@@ -139,7 +139,8 @@
       .layout{padding:0 14px 14px;}
       .topbar{gap:10px;}
       .controls{flex-direction:column;align-items:stretch;}
-      .search{width:100%;}
+      .search{width:100%;padding:16px 16px;}
+      .search input{font-size:14px;}
       .theme-toggle{width:100%;text-align:center;}
       .grid{gap:10px;}
       a.card{padding:12px;min-height:170px;}
@@ -255,6 +256,9 @@
 <body>
   <header>
     <div class="topbar">
+      <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
+        Switch to Light
+      </button>
       <div class="titleblock">
         <h1>AI Tools Hub</h1>
         <p class="subtitle"><span id="count">56</span> tools • 7×8 layout (scrollable)</p>
@@ -274,9 +278,6 @@
           <span aria-hidden="true">🔎</span>
           <input id="q" type="search" placeholder="Try: chat, image, video, voice, coding…" autocomplete="off" />
         </div>
-        <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
-          Switch to Light
-        </button>
       </div>
     </div>
   </header>
@@ -1019,7 +1020,6 @@
           <ul class="bullets"><li>Code suggestions</li><li>Developer productivity</li></ul>
           <p class="rating">Neutral pick for quick evaluation and comparison.</p>
         </a>
-
         <!-- 38 -->
         <a class="card" href="https://huggingface.co/" target="_blank" rel="noopener noreferrer"
            data-keywords="hugging face models datasets spaces">
