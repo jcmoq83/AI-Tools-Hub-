@@ -85,6 +85,15 @@
     }
     .nav a:hover{border-bottom-color:currentColor;}
 
+    .utility{
+      position:absolute;
+      right:18px;
+      top:50px;
+      z-index:4;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
     .theme-toggle{
       border:1px solid var(--border);
       background:linear-gradient(180deg,var(--panel),rgba(255,255,255,.03));
@@ -99,12 +108,6 @@
       transition:transform .12s ease,border-color .12s ease,background .12s ease;
       white-space:nowrap;
     }
-    .theme-toggle.corner{
-      position:absolute;
-      right:18px;
-      top:50px;
-      z-index:4;
-    }
     .theme-toggle:hover{
       transform:translateY(-1px);
       border-color:rgba(255,255,255,.24);
@@ -116,6 +119,39 @@
       border-color:var(--focus);
     }
     [data-theme="light"] .theme-toggle:hover{border-color:rgba(10,12,20,.24);}
+    .lang-toggle{
+      border:1px solid rgba(90,220,160,.45);
+      background:linear-gradient(180deg,rgba(40,160,110,.35),rgba(20,90,70,.25));
+      color:#eafff4;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.2px;
+      box-shadow:var(--shadow);
+      cursor:pointer;
+      transition:transform .12s ease,border-color .12s ease,background .12s ease;
+      white-space:nowrap;
+    }
+    .lang-toggle:hover{
+      transform:translateY(-1px);
+      border-color:rgba(120,255,200,.6);
+      background:linear-gradient(180deg,rgba(60,190,130,.42),rgba(25,110,80,.28));
+    }
+    .lang-toggle:focus-visible{
+      outline:none;
+      box-shadow:0 0 0 3px rgba(90,220,160,.35),var(--shadow);
+      border-color:rgba(120,255,200,.65);
+    }
+    [data-theme="light"] .lang-toggle{
+      color:#0b1a13;
+      border-color:rgba(20,120,80,.35);
+      background:linear-gradient(180deg,rgba(90,220,160,.45),rgba(70,170,130,.35));
+    }
+    [data-theme="light"] .lang-toggle:hover{
+      border-color:rgba(20,120,80,.5);
+      background:linear-gradient(180deg,rgba(90,220,160,.55),rgba(70,170,130,.4));
+    }
 
     .layout{
       max-width:1900px;margin:0 auto;padding:0 18px 18px;
@@ -145,15 +181,20 @@
       .layout{padding:0 14px 14px;}
       .topbar{gap:10px;padding-top:0;align-items:center;}
       .titleblock{order:1;flex:1 1 auto;}
-      .controls{flex-direction:column;align-items:stretch;}
+      .controls{flex-direction:column;align-items:stretch;order:2;}
       .search{width:100%;padding:16px 16px;}
       .search input{font-size:14px;}
-      .theme-toggle{width:100%;text-align:center;}
-      .theme-toggle.corner{
+      .utility{
         position:static;
-        order:2;
-        width:auto;
+        order:3;
+        width:100%;
+        justify-content:flex-end;
         margin-left:auto;
+      }
+      .utility .theme-toggle,
+      .utility .lang-toggle{
+        width:auto;
+        text-align:center;
         padding:6px 10px;
         font-size:11px;
         box-shadow:none;
@@ -272,19 +313,24 @@
 <body>
   <header>
     <div class="topbar">
-      <button id="themeToggle" class="theme-toggle corner" type="button" aria-pressed="false">
-        Switch to Light
-      </button>
+      <div class="utility" aria-label="Display controls">
+        <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
+          Switch to Light
+        </button>
+        <button id="langToggle" class="lang-toggle" type="button" aria-pressed="false">
+          한국어
+        </button>
+      </div>
       <div class="titleblock">
-        <h1>AI Tools Hub 77</h1>
-        <p class="subtitle"><span id="count">77</span> tools • Click any AI to open it.</p>
-        <div class="hint">Search only filters (cards are pre-rendered, so they always show).</div>
-        <div class="nav" aria-label="Site sections">
-          <a href="#about">About</a>
-          <a href="#how">How We Pick</a>
-          <a href="#updates">Update Policy</a>
-          <a href="#privacy">Privacy</a>
-          <a href="#terms">Terms</a>
+        <h1 id="title">AI Tools Hub 77</h1>
+        <p id="subtitle" class="subtitle"><span id="count">77</span><span id="subtitle-text"> tools • Click any AI to open it.</span></p>
+        <div id="hint" class="hint">Search only filters (cards are pre-rendered, so they always show).</div>
+        <div id="siteNav" class="nav" aria-label="Site sections">
+          <a id="nav-about" href="#about">About</a>
+          <a id="nav-how" href="#how">How We Pick</a>
+          <a id="nav-updates" href="#updates">Update Policy</a>
+          <a id="nav-privacy" href="#privacy">Privacy</a>
+          <a id="nav-terms" href="#terms">Terms</a>
         </div>
       </div>
 
@@ -298,7 +344,7 @@
   </header>
 
   <noscript>
-    <div class="noscript">
+    <div id="noscript-msg" class="noscript">
       JavaScript is disabled. Cards will still show, but search filtering will not work.
     </div>
   </noscript>
@@ -307,45 +353,45 @@
     <main>
       <div id="group-about" class="section-group">
         <section id="about" class="section" aria-label="About this site">
-          <h2>About This Directory</h2>
-          <p>This is a curated, human-edited list of AI tools across chat, image, video, music, games, and productivity.
+          <h2 id="about-title">About This Directory</h2>
+          <p id="about-p1">This is a curated, human-edited list of AI tools across chat, image, video, music, games, and productivity.
              We focus on useful, differentiated tools and summarize each one so visitors can decide quickly.</p>
-          <p>I'm a man curating AI tools for creators and builders.</p>
-          <p>Every listing links directly to the official product site. We do not host or mirror third‑party content.</p>
+          <p id="about-p2">I'm a man curating AI tools for creators and builders.</p>
+          <p id="about-p3">Every listing links directly to the official product site. We do not host or mirror third‑party content.</p>
         </section>
       </div>
 
       <div id="group-how" class="section-group">
         <section id="how" class="section" aria-label="How we pick tools">
-          <h2>How We Pick Tools</h2>
+          <h2 id="how-title">How We Pick Tools</h2>
           <ul>
-            <li>Original value: tools should offer distinct capabilities, not re-skinned clones.</li>
-            <li>Clarity: each card includes a concise description and practical use cues.</li>
-            <li>User benefit: we prioritize tools that save time or enable new creative output.</li>
+            <li id="how-li-1">Original value: tools should offer distinct capabilities, not re-skinned clones.</li>
+            <li id="how-li-2">Clarity: each card includes a concise description and practical use cues.</li>
+            <li id="how-li-3">User benefit: we prioritize tools that save time or enable new creative output.</li>
           </ul>
         </section>
       </div>
 
       <div id="group-updates" class="section-group">
         <section id="updates" class="section" aria-label="Update policy">
-          <h2>Update Policy</h2>
-          <p>This directory is refreshed regularly as tools evolve, new products launch, or quality changes.
+          <h2 id="updates-title">Update Policy</h2>
+          <p id="updates-p">This directory is refreshed regularly as tools evolve, new products launch, or quality changes.
              If a tool becomes inactive or misleading, it is removed.</p>
         </section>
       </div>
 
       <div id="group-privacy" class="section-group">
         <section id="privacy" class="section" aria-label="Privacy policy">
-          <h2>Privacy</h2>
-          <p>We do not require account creation. Basic analytics may be used to improve the experience.
+          <h2 id="privacy-title">Privacy</h2>
+          <p id="privacy-p">We do not require account creation. Basic analytics may be used to improve the experience.
              Ads may be personalized based on your settings in your browser or Google account.</p>
         </section>
       </div>
 
       <div id="group-terms" class="section-group">
         <section id="terms" class="section" aria-label="Terms of use">
-          <h2>Terms</h2>
-          <p>Listings are provided for informational purposes only. Product names and trademarks belong to their owners.
+          <h2 id="terms-title">Terms</h2>
+          <p id="terms-p">Listings are provided for informational purposes only. Product names and trademarks belong to their owners.
              Use third‑party tools according to each provider’s terms.</p>
         </section>
       </div>
@@ -1662,7 +1708,7 @@
 
       </section>
 
-      <div class="contact" aria-label="Contact email">Contact: <a href="mailto:jcmoq83@gmail.com">jcmoq83@gmail.com</a></div>
+      <div id="contact-wrap" class="contact" aria-label="Contact email"><span id="contact-label">Contact:</span> <a href="mailto:jcmoq83@gmail.com">jcmoq83@gmail.com</a></div>
     </main>
   </div>
 
@@ -1671,26 +1717,443 @@
     (function(){
       const root = document.documentElement;
       const toggle = document.getElementById("themeToggle");
+      const langToggle = document.getElementById("langToggle");
       const storedTheme = localStorage.getItem("theme");
+      const storedLang = localStorage.getItem("lang");
       const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
       const initialTheme = storedTheme || (prefersDark ? "dark" : "light");
 
+      const titleEl = document.getElementById("title");
+      const subtitleTextEl = document.getElementById("subtitle-text");
+      const hintEl = document.getElementById("hint");
+      const siteNav = document.getElementById("siteNav");
+      const navAbout = document.getElementById("nav-about");
+      const navHow = document.getElementById("nav-how");
+      const navUpdates = document.getElementById("nav-updates");
+      const navPrivacy = document.getElementById("nav-privacy");
+      const navTerms = document.getElementById("nav-terms");
+      const searchWrap = document.querySelector(".search");
+      const searchInput = document.getElementById("q");
+      const noscriptMsg = document.getElementById("noscript-msg");
+      const contactWrap = document.getElementById("contact-wrap");
+      const contactLabel = document.getElementById("contact-label");
+      const metaDescription = document.querySelector('meta[name="description"]');
+
+      const aboutSection = document.getElementById("about");
+      const howSection = document.getElementById("how");
+      const updatesSection = document.getElementById("updates");
+      const privacySection = document.getElementById("privacy");
+      const termsSection = document.getElementById("terms");
+
+      const aboutTitle = document.getElementById("about-title");
+      const aboutP1 = document.getElementById("about-p1");
+      const aboutP2 = document.getElementById("about-p2");
+      const aboutP3 = document.getElementById("about-p3");
+      const howTitle = document.getElementById("how-title");
+      const howLi1 = document.getElementById("how-li-1");
+      const howLi2 = document.getElementById("how-li-2");
+      const howLi3 = document.getElementById("how-li-3");
+      const updatesTitle = document.getElementById("updates-title");
+      const updatesP = document.getElementById("updates-p");
+      const privacyTitle = document.getElementById("privacy-title");
+      const privacyP = document.getElementById("privacy-p");
+      const termsTitle = document.getElementById("terms-title");
+      const termsP = document.getElementById("terms-p");
+
+      const cards = Array.from(document.querySelectorAll(".card"));
+      const countEl = document.getElementById("count");
+      let visibleCount = cards.length;
+
+      const toolNameEls = Array.from(document.querySelectorAll(".card .name"));
+      const toolPillEls = Array.from(document.querySelectorAll(".card .pill"));
+      const toolDescEls = Array.from(document.querySelectorAll(".card .desc"));
+      const toolBulletEls = Array.from(document.querySelectorAll(".card .bullets li"));
+
+      const toolNamesEn = toolNameEls.map((el) => el.textContent.trim());
+      const toolPillsEn = toolPillEls.map((el) => el.textContent.trim());
+      const toolDescsEn = toolDescEls.map((el) => el.textContent.trim());
+      const toolBulletsEn = toolBulletEls.map((el) => el.textContent.trim());
+
+      const pillMap = {
+        "API": "API",
+        "Agent": "에이전트",
+        "Art": "아트",
+        "Audio": "오디오",
+        "Automation": "자동화",
+        "Chatbot": "챗봇",
+        "Coding": "코딩",
+        "Design": "디자인",
+        "Developer": "개발자",
+        "Game": "게임",
+        "Hub": "허브",
+        "Image": "이미지",
+        "Meetings": "회의",
+        "Meme": "밈",
+        "Music": "음악",
+        "Presentation": "프레젠테이션",
+        "Productivity": "생산성",
+        "Research": "리서치",
+        "Search": "검색",
+        "Translation": "번역",
+        "Video": "비디오",
+        "Video/Audio": "비디오/오디오",
+        "Voice": "음성",
+        "Writing": "글쓰기",
+      };
+
+      const toolNamesKo = toolNamesEn.slice();
+      const toolPillsKo = toolPillsEn.map((pill) => pillMap[pill] || pill);
+      const toolDescsKo = [
+        "선제적 작업, 리마인더, 자동화에 집중한 에이전트형 비서.",
+        "글쓰기, 추론, 코딩, 멀티모달 작업을 위한 범용 어시스턴트.",
+        "Q&A, 요약, 초안 작성, Google 생태계 작업에 특화된 Google 어시스턴트.",
+        "글 품질이 뛰어나고 긴 문서를 구조적으로 다루는 데 유명.",
+        "웹 검색과 생산성 업무에 초점을 둔 Microsoft 어시스턴트.",
+        "주제 조사와 방향 탐색을 빠르게 해주는 검색 중심 AI.",
+        "일반 Q&A와 추론형 프롬프트에 많이 쓰이는 챗봇.",
+        "Q&A, 브레인스토밍, 반복 탐색을 위한 대화형 어시스턴트.",
+        "일상 대화와 창의적 프롬프트에 쓰이는 Meta 어시스턴트.",
+        "일반 도움과 반복 프롬프트에 빠른 채팅 인터페이스.",
+        "여러 AI 봇/모델을 한곳에서 비교·접속하는 허브.",
+        "내 문서를 바탕으로 요약과 Q&A를 해주는 문서 중심 어시스턴트.",
+        "학술 논문을 찾고 정리해주는 리서치 어시스턴트.",
+        "연구 논문에서 근거를 찾아 핵심을 요약.",
+        "미감이 뛰어난 고품질 이미지 생성으로 유명.",
+        "일러스트·컨셉에 강한 프롬프트 이해형 이미지 생성.",
+        "Stable Diffusion 기반 변형과 창작 탐색용 UI.",
+        "Adobe 워크플로에 맞춘 생성·편집용 AI.",
+        "템플릿+AI로 마케팅 비주얼, 소셜, 슬라이드 제작.",
+        "에셋 파이프라인과 일관된 스타일에 강한 크리에이터용.",
+        "포스터/라벨/브랜딩 초안에 쓰이는 텍스트 중심 이미지 생성.",
+        "스타일과 비주얼 방향을 빠르게 탐색하는 툴셋.",
+        "크리에이터 워크플로에 널리 쓰이는 AI 영상 생성·편집.",
+        "소셜용 짧은 클립에 맞춘 스타일 영상 생성.",
+        "시네마틱한 움직임에 초점을 둔 텍스트/이미지→비디오.",
+        "설명/마케팅/로컬라이즈용 아바타 기반 영상.",
+        "교육/내부 커뮤니케이션용 엔터프라이즈 아바타 영상.",
+        "AI 캡션·효과로 빠른 숏폼 제작에 널리 쓰이는 편집기.",
+        "브라우저 기반 영상 편집 + 캡션 중심 워크플로.",
+        "내레이션, 더빙, 자연스러운 보이스오버용 음성 생성.",
+        "빠른 데모와 창작 탐색을 위한 음악 생성.",
+        "다양한 스타일의 음악을 빠르게 생성·반복.",
+        "말소리를 더 선명하게 만드는 오디오 개선.",
+        "문서처럼 영상/오디오를 편집—인터뷰·리퍼포징에 강함.",
+        "IDE 안에서 자동완성/설명/빠른 반복을 돕는 코딩 보조.",
+        "리팩터·설명·빠른 코딩을 위한 AI 퍼스트 에디터.",
+        "브라우저에서 빠른 프로토타입과 실행이 가능한 코딩 환경.",
+        "IDE 전반에서 제안과 생산성 향상을 돕는 코딩 어시스턴트.",
+        "모델·데이터셋·데모를 탐색하는 주요 ML 플랫폼.",
+        "Notion 안에서 초안/요약/정리 기능 제공.",
+        "앱 연결과 자동화 워크플로를 더 빠르게 만드는 AI.",
+        "멀티모달 모델과 개발자 API를 제공하는 AI 기업.",
+        "깔끔한 프레젠테이션(간단 웹페이지 포함)을 빠르게 생성.",
+        "스마트 레이아웃으로 빠르고 세련된 발표자료 제작.",
+        "프롬프트로 슬라이드를 생성—빠르고 깔끔한 비즈니스 톤.",
+        "회화적·시네마틱 스타일로 유명한 텍스트→이미지.",
+        "게임용 컨셉 아트와 에셋 생성.",
+        "커뮤니티 프롬프트/스타일로 AI 아트를 생성·탐색.",
+        "이미지를 섞고 진화시켜 새로운 캐릭터/작품 생성.",
+        "실시간 AI 아트 생성과 창작 탐색 툴.",
+        "프롬프트/주제로 밈 캡션 생성.",
+        "프롬프트와 템플릿으로 밈 자동 생성.",
+        "AI 캡션과 빠른 편집으로 밈 제작.",
+        "게임 아이디어와 참고자료를 생성해 기획 속도 향상.",
+        "커스텀 스타일로 게임 아트 에셋·캐릭터 생성.",
+        "AI로 플레이 가능한 게임/경험을 제작.",
+        "여러 언어 번역과 글쓰기 보조에 강함.",
+        "스토리·아이디어·롤플레이용 AI 캐릭터 생성/대화.",
+        "사진/상품 이미지 배경을 원클릭 제거.",
+        "Gemini 모델과 프롬프트, API를 실험하는 공간.",
+        "빠른 패러프레이즈·요약·문장 정리.",
+        "작성 중 문법, 명확성, 톤을 제안.",
+        "텍스트·이미지 생성 등 간단한 AI API.",
+        "템플릿/스크립트/AI 편집으로 빠르게 영상 제작.",
+        "자동화 워크플로와 AI 통합을 구축.",
+        "회의를 자동 녹음·전사·요약.",
+        "AI 효과와 빠른 편집이 가능한 영상 편집기.",
+        "AI로 소셜 그래픽, 포스터, 레이아웃 제작.",
+        "스크립트/긴 영상을 짧은 클립으로 변환.",
+        "웹 결과와 함께 답을 주는 검색·대화 어시스턴트.",
+        "텍스트를 AI 보이스오버 영상으로 변환.",
+        "텍스트로 사실적인 보이스오버 제작.",
+        "마케팅 카피, 블로그 아웃라인, 광고 문구 생성.",
+        "브랜드 톤에 맞춘 마케팅 글쓰기와 콘텐츠 워크플로.",
+        "톤/길이를 조절하며 문장을 다듬기.",
+        "마케팅 카피, 이메일, 세일즈 콘텐츠를 빠르게 생성.",
+        "텍스트를 사실적인 음성/오디오로 생성.",
+      ];
+
+      const toolBulletsKoPairs = [
+        ["작업 오케스트레이션", "자동화 워크플로"],
+        ["전반적으로 강한 만능형", "초안·분석에 강함"],
+        ["구글 사용자에게 적합", "빠른 답변·요약"],
+        ["긴 컨텍스트에 강함", "섬세한 문체"],
+        ["마이크로소프트 사용자에게 적합", "일상 업무 보조"],
+        ["리서치 워크플로", "빠른 탐색"],
+        ["구조화된 Q&A", "분석형 프롬프트에 좋음"],
+        ["빠른 핑퐁 대화", "아이디어 생성"],
+        ["일상 대화", "창의적 프롬프트"],
+        ["빠른 반복", "간단한 워크플로"],
+        ["모델 전환", "빠른 비교"],
+        ["출처 기반 Q&A", "노트에 강함"],
+        ["문헌 리뷰", "논문 요약·정리"],
+        ["근거 중심", "논문 요약"],
+        ["탁월한 스타일", "마케팅·컨셉 아트"],
+        ["프롬프트 충실도", "컨셉 비주얼"],
+        ["유연한 실험", "다양한 변형"],
+        ["디자이너 친화", "빠른 반복"],
+        ["대중적 사용", "빠른 브랜드 자산"],
+        ["에셋·일관성", "크리에이터 툴"],
+        ["이미지 속 텍스트", "포스터 스타일"],
+        ["빠른 탐색", "신속한 반복"],
+        ["크리에이터용 툴", "숏폼 컨셉"],
+        ["빠른 클립", "스타일 출력"],
+        ["시네마틱 느낌", "스토리보드·컨셉"],
+        ["아바타 영상", "설명·마케팅"],
+        ["HR·교육", "비즈니스 워크플로"],
+        ["숏폼 필수툴", "빠른 편집·효과"],
+        ["웹 기반 편집", "캡션 워크플로"],
+        ["내레이션", "현지화·더빙"],
+        ["아이디어→음악", "프로토타입에 좋음"],
+        ["스타일 탐색", "빠른 초안"],
+        ["음성 정리", "팟캐스트급 선명도"],
+        ["텍스트 기반 편집", "크리에이터·팀 워크플로"],
+        ["자동완성+챗", "일상 개발 속도 향상"],
+        ["리팩터 지원", "빠른 반복"],
+        ["빠른 프로토타입", "빠른 데모"],
+        ["코드 제안", "개발자 생산성"],
+        ["모델 탐색", "실습 데모"],
+        ["문서·위키", "요약·구조화"],
+        ["앱 자동화", "워크플로 구축"],
+        ["멀티모달 모델", "개발자 플랫폼"],
+        ["빠른 피치덱", "공유·내보내기"],
+        ["자동 레이아웃", "클라이언트용 완성도"],
+        ["프롬프트→덱", "비즈니스 발표 중심"],
+        ["고품질 아트", "뚜렷한 스타일"],
+        ["에셋 생성", "스타일 제어"],
+        ["프롬프트 갤러리", "다양한 모델"],
+        ["이미지 믹싱", "캐릭터 디자인"],
+        ["실시간 결과", "창작 제어"],
+        ["프롬프트→밈", "빠른 공유"],
+        ["클래식 템플릿", "빠른 결과"],
+        ["캡션 도움", "쉬운 편집"],
+        ["아이디어 생성", "게임 리서치"],
+        ["커스텀 모델", "게임 에셋"],
+        ["노코드 게임", "플레이어블 빌드"],
+        ["빠른 번역", "톤 고려 글쓰기"],
+        ["커스텀 캐릭터", "롤플레이 채팅"],
+        ["즉시 누끼", "깨끗한 PNG"],
+        ["모델 놀이터", "API용 프롬프트"],
+        ["문장 바꿔쓰기", "문법 도움"],
+        ["스타일 체크", "톤 가이드"],
+        ["빠른 API 접근", "여러 모델"],
+        ["템플릿 라이브러리", "스크립트→영상"],
+        ["워크플로 빌더", "셀프호스트 옵션"],
+        ["실시간 노트", "하이라이트·요약"],
+        ["AI 효과", "초보 친화"],
+        ["프롬프트→디자인", "쉬운 템플릿"],
+        ["자동 캡션", "클립 하이라이트"],
+        ["검색 중심", "빠른 답변"],
+        ["텍스트→영상", "AI 음성"],
+        ["음성 라이브러리", "스튜디오 에디터"],
+        ["마케팅 카피", "블로그 초안"],
+        ["브랜드 보이스", "캠페인 카피"],
+        ["다양한 재작성", "톤 제어"],
+        ["이메일 카피", "세일즈 에셋"],
+        ["텍스트→음성", "보이스 스타일"],
+      ];
+
+      const toolBulletsKo = toolBulletsKoPairs.flat();
+
+      const i18n = {
+        en: {
+          pageTitle: "AI Tools Hub 77",
+          metaDescription: "A one-page hub of 77 widely-used AI tools across chat, image, video, audio, and productivity.",
+          subtitleText: " tools • Click any AI to open it.",
+          hint: "Search only filters (cards are pre-rendered, so they always show).",
+          navAria: "Site sections",
+          navAbout: "About",
+          navHow: "How We Pick",
+          navUpdates: "Update Policy",
+          navPrivacy: "Privacy",
+          navTerms: "Terms",
+          searchAria: "Search AI tools",
+          searchPlaceholder: "Try: chat, image, video, voice, coding, research, slides, automation, translation, grammar, writing, design, meme, music, deepl, grammarly, quillbot, jasper, copy.ai, you.com, otter, invideo, filmora, removebg, n8n",
+          noscript: "JavaScript is disabled. Cards will still show, but search filtering will not work.",
+          aboutAria: "About this site",
+          aboutTitle: "About This Directory",
+          aboutP1: "This is a curated, human-edited list of AI tools across chat, image, video, music, games, and productivity. We focus on useful, differentiated tools and summarize each one so visitors can decide quickly.",
+          aboutP2: "I'm a man curating AI tools for creators and builders.",
+          aboutP3: "Every listing links directly to the official product site. We do not host or mirror third‑party content.",
+          howAria: "How we pick tools",
+          howTitle: "How We Pick Tools",
+          howLi1: "Original value: tools should offer distinct capabilities, not re-skinned clones.",
+          howLi2: "Clarity: each card includes a concise description and practical use cues.",
+          howLi3: "User benefit: we prioritize tools that save time or enable new creative output.",
+          updatesAria: "Update policy",
+          updatesTitle: "Update Policy",
+          updatesP: "This directory is refreshed regularly as tools evolve, new products launch, or quality changes. If a tool becomes inactive or misleading, it is removed.",
+          privacyAria: "Privacy policy",
+          privacyTitle: "Privacy",
+          privacyP: "We do not require account creation. Basic analytics may be used to improve the experience. Ads may be personalized based on your settings in your browser or Google account.",
+          termsAria: "Terms of use",
+          termsTitle: "Terms",
+          termsP: "Listings are provided for informational purposes only. Product names and trademarks belong to their owners. Use third‑party tools according to each provider’s terms.",
+          contactAria: "Contact email",
+          contactLabel: "Contact:",
+          themeToLight: "Switch to Light",
+          themeToDark: "Switch to Dark",
+          langToKo: "한국어",
+          langToEn: "English",
+          langAriaToKo: "한국어로 보기",
+          langAriaToEn: "Switch language to English",
+        },
+        ko: {
+          pageTitle: "AI 툴 허브 77",
+          metaDescription: "채팅, 이미지, 비디오, 오디오, 생산성 분야의 널리 쓰이는 77가지 AI 도구를 한 페이지에 모았습니다.",
+          subtitleText: "개 도구 • 원하는 AI를 눌러 바로 열어보세요.",
+          hint: "검색은 필터만 적용돼요(카드는 미리 렌더되어 항상 표시됩니다).",
+          navAria: "사이트 섹션",
+          navAbout: "소개",
+          navHow: "선정 기준",
+          navUpdates: "업데이트 정책",
+          navPrivacy: "개인정보",
+          navTerms: "이용 약관",
+          searchAria: "AI 도구 검색",
+          searchPlaceholder: "예: 채팅, 이미지, 비디오, 보이스, 코딩, 리서치, 슬라이드, 자동화, 번역, 문법, 글쓰기, 디자인, 밈, 음악, deepl, grammarly, quillbot, jasper, copy.ai, you.com, otter, invideo, filmora, removebg, n8n",
+          noscript: "JavaScript가 꺼져 있습니다. 카드는 표시되지만 검색 필터는 동작하지 않습니다.",
+          aboutAria: "이 사이트 소개",
+          aboutTitle: "이 디렉터리 소개",
+          aboutP1: "여기는 채팅, 이미지, 비디오, 음악, 게임, 생산성 분야의 AI 도구를 사람이 직접 큐레이션한 목록입니다. 유용하고 차별화된 도구를 골라, 방문자가 빠르게 판단할 수 있도록 요약해 제공합니다.",
+          aboutP2: "저는 창작자와 빌더를 위한 AI 도구를 큐레이션하고 있습니다.",
+          aboutP3: "모든 항목은 공식 제품 사이트로 바로 연결됩니다. 제3자 콘텐츠를 호스팅하거나 미러링하지 않습니다.",
+          howAria: "도구 선정 기준",
+          howTitle: "도구 선정 기준",
+          howLi1: "차별성: 겉모습만 바뀐 복제판이 아니라 독자적인 가치를 제공해야 합니다.",
+          howLi2: "명확성: 각 카드는 간결한 설명과 실용적인 사용 힌트를 담습니다.",
+          howLi3: "사용자 가치: 시간을 줄이거나 새로운 창작을 가능하게 하는 도구를 우선합니다.",
+          updatesAria: "업데이트 정책",
+          updatesTitle: "업데이트 정책",
+          updatesP: "이 디렉터리는 도구의 변화, 신제품 출시, 품질 변동에 맞춰 정기적으로 업데이트됩니다. 비활성화되거나 오해를 부르는 도구는 제거합니다.",
+          privacyAria: "개인정보 보호",
+          privacyTitle: "개인정보",
+          privacyP: "계정 생성은 필요 없습니다. 경험 개선을 위해 기본적인 분석을 사용할 수 있습니다. 광고는 브라우저 설정이나 Google 계정 설정에 따라 개인화될 수 있습니다.",
+          termsAria: "이용 약관",
+          termsTitle: "이용 약관",
+          termsP: "목록은 정보 제공 목적입니다. 제품명과 상표는 각 소유자에게 있습니다. 제3자 도구는 제공자의 약관을 따라 사용하세요.",
+          contactAria: "연락처 이메일",
+          contactLabel: "문의:",
+          themeToLight: "라이트로 전환",
+          themeToDark: "다크로 전환",
+          langToKo: "한국어",
+          langToEn: "English",
+          langAriaToKo: "한국어로 보기",
+          langAriaToEn: "영어로 보기",
+        },
+      };
+
+      let currentLang = storedLang || "en";
+
+      function updateSubtitle(){
+        const t = i18n[currentLang];
+        if (subtitleTextEl) subtitleTextEl.textContent = t.subtitleText;
+        if (countEl) countEl.textContent = visibleCount;
+      }
+
+      function updateThemeLabel(){
+        if (!toggle) return;
+        const t = i18n[currentLang];
+        const isDark = root.dataset.theme === "dark";
+        toggle.textContent = isDark ? t.themeToLight : t.themeToDark;
+        toggle.setAttribute("aria-pressed", String(!isDark));
+      }
+
+      function updateLangLabel(){
+        if (!langToggle) return;
+        const t = i18n[currentLang];
+        const isKo = currentLang === "ko";
+        // Always show the target language on the button.
+        langToggle.textContent = isKo ? "English" : "한국어";
+        langToggle.setAttribute("aria-pressed", String(isKo));
+        langToggle.setAttribute("aria-label", isKo ? t.langAriaToEn : t.langAriaToKo);
+      }
+
+      function applyTools(lang){
+        const names = lang === "ko" ? toolNamesKo : toolNamesEn;
+        const descs = lang === "ko" ? toolDescsKo : toolDescsEn;
+        const pills = lang === "ko" ? toolPillsKo : toolPillsEn;
+        const bullets = lang === "ko" ? toolBulletsKo : toolBulletsEn;
+        toolNameEls.forEach((el, i) => { if (names[i]) el.textContent = names[i]; });
+        toolDescEls.forEach((el, i) => { if (descs[i]) el.textContent = descs[i]; });
+        toolPillEls.forEach((el, i) => { if (pills[i]) el.textContent = pills[i]; });
+        toolBulletEls.forEach((el, i) => { if (bullets[i]) el.textContent = bullets[i]; });
+      }
+
+      function applyLanguage(lang){
+        currentLang = lang;
+        localStorage.setItem("lang", currentLang);
+        const t = i18n[currentLang];
+        document.documentElement.lang = currentLang === "ko" ? "ko" : "en";
+        if (titleEl) titleEl.textContent = t.pageTitle;
+        document.title = t.pageTitle;
+        if (metaDescription) metaDescription.setAttribute("content", t.metaDescription);
+        if (hintEl) hintEl.textContent = t.hint;
+        if (siteNav) siteNav.setAttribute("aria-label", t.navAria);
+        if (navAbout) navAbout.textContent = t.navAbout;
+        if (navHow) navHow.textContent = t.navHow;
+        if (navUpdates) navUpdates.textContent = t.navUpdates;
+        if (navPrivacy) navPrivacy.textContent = t.navPrivacy;
+        if (navTerms) navTerms.textContent = t.navTerms;
+        if (searchWrap) searchWrap.setAttribute("aria-label", t.searchAria);
+        if (searchInput) searchInput.setAttribute("placeholder", t.searchPlaceholder);
+        if (noscriptMsg) noscriptMsg.textContent = t.noscript;
+        if (aboutSection) aboutSection.setAttribute("aria-label", t.aboutAria);
+        if (howSection) howSection.setAttribute("aria-label", t.howAria);
+        if (updatesSection) updatesSection.setAttribute("aria-label", t.updatesAria);
+        if (privacySection) privacySection.setAttribute("aria-label", t.privacyAria);
+        if (termsSection) termsSection.setAttribute("aria-label", t.termsAria);
+        if (aboutTitle) aboutTitle.textContent = t.aboutTitle;
+        if (aboutP1) aboutP1.textContent = t.aboutP1;
+        if (aboutP2) aboutP2.textContent = t.aboutP2;
+        if (aboutP3) aboutP3.textContent = t.aboutP3;
+        if (howTitle) howTitle.textContent = t.howTitle;
+        if (howLi1) howLi1.textContent = t.howLi1;
+        if (howLi2) howLi2.textContent = t.howLi2;
+        if (howLi3) howLi3.textContent = t.howLi3;
+        if (updatesTitle) updatesTitle.textContent = t.updatesTitle;
+        if (updatesP) updatesP.textContent = t.updatesP;
+        if (privacyTitle) privacyTitle.textContent = t.privacyTitle;
+        if (privacyP) privacyP.textContent = t.privacyP;
+        if (termsTitle) termsTitle.textContent = t.termsTitle;
+        if (termsP) termsP.textContent = t.termsP;
+        if (contactWrap) contactWrap.setAttribute("aria-label", t.contactAria);
+        if (contactLabel) contactLabel.textContent = t.contactLabel;
+        applyTools(currentLang);
+        updateSubtitle();
+        updateThemeLabel();
+        updateLangLabel();
+      }
+
       function applyTheme(theme){
         root.dataset.theme = theme;
-        if (toggle){
-          const isDark = theme === "dark";
-          toggle.textContent = isDark ? "Switch to Light" : "Switch to Dark";
-          toggle.setAttribute("aria-pressed", String(!isDark));
-        }
+        updateThemeLabel();
       }
 
       applyTheme(initialTheme);
+      applyLanguage(currentLang);
 
       if (toggle){
         toggle.addEventListener("click", () => {
           const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
           localStorage.setItem("theme", nextTheme);
           applyTheme(nextTheme);
+        });
+      }
+
+      if (langToggle){
+        langToggle.addEventListener("click", () => {
+          const nextLang = currentLang === "ko" ? "en" : "ko";
+          applyLanguage(nextLang);
         });
       }
 
@@ -1747,24 +2210,24 @@
         openGroup(location.hash);
       }
 
-      const q = document.getElementById("q");
-      const cards = Array.from(document.querySelectorAll(".card"));
-      const countEl = document.getElementById("count");
-      if (countEl) countEl.textContent = cards.length;
+      if (countEl) countEl.textContent = visibleCount;
 
       function normalize(s){ return (s || "").toLowerCase().trim(); }
 
-      q.addEventListener("input", () => {
-        const term = normalize(q.value);
-        let visible = 0;
-        for (const c of cards){
-          const kw = (c.dataset.keywords || "").toLowerCase();
-          const show = !term || kw.includes(term);
-          c.classList.toggle("hidden", !show);
-          if (show) visible++;
-        }
-        if (countEl) countEl.textContent = visible;
-      });
+      if (searchInput){
+        searchInput.addEventListener("input", () => {
+          const term = normalize(searchInput.value);
+          let visible = 0;
+          for (const c of cards){
+            const kw = (c.dataset.keywords || "").toLowerCase();
+            const show = !term || kw.includes(term);
+            c.classList.toggle("hidden", !show);
+            if (show) visible++;
+          }
+          visibleCount = visible;
+          if (countEl) countEl.textContent = visibleCount;
+        });
+      }
     })();
   </script>
 </body>
