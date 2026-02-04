@@ -48,8 +48,8 @@
         var(--bg);
     }
 
-    header{padding:14px 18px 12px;max-width:1900px;margin:0 auto;}
-    .topbar{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;}
+    header{position:relative;padding:14px 18px 12px;max-width:1900px;margin:0 auto;}
+    .topbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-top:36px;}
     .titleblock{min-width:260px;}
     h1{margin:0;font-size:18px;letter-spacing:.2px;font-weight:850;}
     .subtitle{margin:6px 0 0;color:var(--muted);font-size:12px;line-height:1.35;}
@@ -99,6 +99,12 @@
       transition:transform .12s ease,border-color .12s ease,background .12s ease;
       white-space:nowrap;
     }
+    .theme-toggle.corner{
+      position:absolute;
+      left:18px;
+      top:14px;
+      z-index:4;
+    }
     .theme-toggle:hover{
       transform:translateY(-1px);
       border-color:rgba(255,255,255,.24);
@@ -137,7 +143,7 @@
     @media (max-width:520px){
       header{padding:12px 14px 10px;}
       .layout{padding:0 14px 14px;}
-      .topbar{gap:10px;}
+      .topbar{gap:10px;padding-top:44px;}
       .controls{flex-direction:column;align-items:stretch;}
       .search{width:100%;padding:16px 16px;}
       .search input{font-size:14px;}
@@ -256,7 +262,7 @@
 <body>
   <header>
     <div class="topbar">
-      <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
+      <button id="themeToggle" class="theme-toggle corner" type="button" aria-pressed="false">
         Switch to Light
       </button>
       <div class="titleblock">
