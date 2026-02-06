@@ -324,7 +324,6 @@
       <div class="titleblock">
         <h1 id="title">AI Tools Hub 100</h1>
         <p id="subtitle" class="subtitle"><span id="count">100</span><span id="subtitle-text"> tools • Click any AI to open it.</span></p>
-        <div id="hint" class="hint">Search only filters (cards are pre-rendered, so they always show).</div>
         <div id="siteNav" class="nav" aria-label="Site sections">
           <a id="nav-about" href="#about">About</a>
           <a id="nav-how" href="#how">How We Pick</a>
@@ -2116,7 +2115,6 @@
 
       const titleEl = document.getElementById("title");
       const subtitleTextEl = document.getElementById("subtitle-text");
-      const hintEl = document.getElementById("hint");
       const siteNav = document.getElementById("siteNav");
       const navAbout = document.getElementById("nav-about");
       const navHow = document.getElementById("nav-how");
@@ -2427,7 +2425,6 @@
           pageTitle: "AI Tools Hub 100",
           metaDescription: "A one-page hub of 100 widely-used AI tools across chat, image, video, audio, and productivity.",
           subtitleText: " tools • Click any AI to open it.",
-          hint: "Search only filters (cards are pre-rendered, so they always show).",
           navAria: "Site sections",
           navAbout: "About",
           navHow: "How We Pick",
@@ -2469,7 +2466,6 @@
           pageTitle: "AI 툴 허브 100",
           metaDescription: "채팅, 이미지, 비디오, 오디오, 생산성 분야의 널리 쓰이는 100가지 AI 도구를 한 페이지에 모았습니다.",
           subtitleText: "개 도구 • 원하는 AI를 눌러 바로 열어보세요.",
-          hint: "검색은 필터만 적용돼요(카드는 미리 렌더되어 항상 표시됩니다).",
           navAria: "사이트 섹션",
           navAbout: "소개",
           navHow: "선정 기준",
@@ -2554,7 +2550,6 @@
         if (titleEl) titleEl.textContent = t.pageTitle;
         document.title = t.pageTitle;
         if (metaDescription) metaDescription.setAttribute("content", t.metaDescription);
-        if (hintEl) hintEl.textContent = t.hint;
         if (siteNav) siteNav.setAttribute("aria-label", t.navAria);
         if (navAbout) navAbout.textContent = t.navAbout;
         if (navHow) navHow.textContent = t.navHow;
