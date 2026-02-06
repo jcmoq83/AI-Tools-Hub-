@@ -2192,6 +2192,12 @@
 
       const toolNamesKo = toolNamesEn.slice();
       const toolPillsKo = toolPillsEn.map((pill) => pillMap[pill] || pill);
+      const toolPillsEnByCard = cards.map((card) =>
+        Array.from(card.querySelectorAll(".pill")).map((el) => el.textContent.trim())
+      );
+      const toolPillsKoByCard = toolPillsEnByCard.map((pills) =>
+        pills.map((pill) => pillMap[pill] || pill)
+      );
       const toolDescsKo = [
         "선제적 작업, 리마인더, 자동화에 집중한 에이전트형 비서.",
         "글쓰기, 추론, 코딩, 멀티모달 작업을 위한 범용 어시스턴트.",
@@ -2404,15 +2410,17 @@
       // Build a bilingual index per card so search works in both EN/KO regardless of UI language.
       const searchIndex = cards.map((card, i) => {
         const bulletOffset = i * 2;
+        const pillsEn = toolPillsEnByCard[i] || [];
+        const pillsKo = toolPillsKoByCard[i] || [];
         const tokens = [
           card.dataset.keywords || "",
           toolNamesEn[i] || "",
-          toolPillsEn[i] || "",
+          pillsEn.join(" "),
           toolDescsEn[i] || "",
           toolBulletsEn[bulletOffset] || "",
           toolBulletsEn[bulletOffset + 1] || "",
           toolNamesKo[i] || "",
-          toolPillsKo[i] || "",
+          pillsKo.join(" "),
           toolDescsKo[i] || "",
           toolBulletsKo[bulletOffset] || "",
           toolBulletsKo[bulletOffset + 1] || "",
@@ -2534,11 +2542,15 @@
       function applyTools(lang){
         const names = lang === "ko" ? toolNamesKo : toolNamesEn;
         const descs = lang === "ko" ? toolDescsKo : toolDescsEn;
-        const pills = lang === "ko" ? toolPillsKo : toolPillsEn;
         const bullets = lang === "ko" ? toolBulletsKo : toolBulletsEn;
+        const pillsByCard = lang === "ko" ? toolPillsKoByCard : toolPillsEnByCard;
         toolNameEls.forEach((el, i) => { if (names[i]) el.textContent = names[i]; });
         toolDescEls.forEach((el, i) => { if (descs[i]) el.textContent = descs[i]; });
-        toolPillEls.forEach((el, i) => { if (pills[i]) el.textContent = pills[i]; });
+        cards.forEach((card, i) => {
+          const pillEls = Array.from(card.querySelectorAll(".pill"));
+          const pills = pillsByCard[i] || [];
+          pillEls.forEach((el, j) => { if (pills[j]) el.textContent = pills[j]; });
+        });
         toolBulletEls.forEach((el, i) => { if (bullets[i]) el.textContent = bullets[i]; });
       }
 
